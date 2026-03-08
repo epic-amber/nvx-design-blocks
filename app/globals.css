@@ -4,39 +4,76 @@
 
 /*
  * NVX Design System — Global styles
- * --------------------------------
- * - Theme: body and hero colors are forced here so they stay correct when Tailwind
- *   dark: variants might not apply (e.g. no .dark on html). Do not remove .light/.dark
- *   body rules.
- * - Hero: background layers are toggled by data-hero-bg-light / data-hero-bg-dark;
- *   do not add other opacity/visibility rules that could hide them.
- * - Dark theme overrides use data-hero-* and .dark so HeroBlock stays in sync
- *   without duplicating hex values in JSX.
+ * ----------------------------------
+ * Base styles = default (light) theme. Dark theme is applied by adding .dark on html;
+ * it only adds sub-styles (color overrides), no separate light theme block.
+ * Hero mesh/gradient variables (--hero-mesh-*, --hero-gradient-*) are not modified here.
  */
 
-/* Light theme: lock body to white background and primary text (avoids system dark bleed). */
-html.light body {
-  background-color: #ffffff !important;
-  color: #101828 !important;
+/* ==========================================================================
+   Base styles (light theme — default)
+   ========================================================================== */
+
+/* Typography: Proxima Nova. Add .woff2 to public/fonts/ for full support. */
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* Hero background layers: only one set visible per theme. Do not target these for other styles. */
-html.light [data-hero-bg-light],
+@layer base {
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: #ffffff;
+    color: #101828;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  main {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+
+/* Hero background layers: light set visible by default; dark set hidden until .dark. */
 html:not(.dark) [data-hero-bg-light] {
   opacity: 1 !important;
 }
+html:not(.dark) [data-hero-bg-dark] {
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   Dark theme (sub-styles — applied when .dark is on html)
+   ========================================================================== */
+
 .dark [data-hero-bg-light] {
   opacity: 0 !important;
 }
 .dark [data-hero-bg-dark] {
   opacity: 1 !important;
 }
-html.light [data-hero-bg-dark],
-html:not(.dark) [data-hero-bg-dark] {
-  opacity: 0 !important;
-}
 
-/* Dark theme: hero background tokens (used by HeroBlock; edit here to adjust dark hero look). */
+/* Hero background tokens: do not modify --hero-mesh-* / --hero-gradient-* names or structure. */
 .dark {
   --hero-mesh-color: rgba(165, 187, 230, 0.15);
   --hero-gradient-horizontal: linear-gradient(
@@ -59,7 +96,6 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
-/* Hero 02 dark theme: same mesh as Hero 01 (no override); gradient less bright (lower opacity). */
 .dark [data-hero-02] {
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
@@ -81,7 +117,7 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
-/* Dark theme: override body and hero so correct surface/text always apply (beats any missing dark: in markup). */
+/* Dark: body and page surfaces */
 .dark body {
   background-color: #0f172a !important;
   color: #e0e0e0 !important;
@@ -91,7 +127,7 @@ html:not(.dark) [data-hero-bg-dark] {
   background-color: #0f172a !important;
 }
 
-/* Hero text hierarchy in dark: breadcrumb/description = secondary; heading/label = primary. */
+/* Dark: hero text hierarchy */
 .dark [data-hero-breadcrumb],
 .dark [data-hero-description] {
   color: #8c929b !important;
@@ -102,7 +138,7 @@ html:not(.dark) [data-hero-bg-dark] {
   color: #e0e0e0 !important;
 }
 
-/* Hero buttons: primary = filled accent; secondary = text-only accent. */
+/* Dark: hero buttons */
 .dark [data-hero-btn-primary] {
   background-color: #3498db !important;
   color: #ffffff !important;
@@ -112,51 +148,11 @@ html:not(.dark) [data-hero-bg-dark] {
   color: #3498db !important;
 }
 
-/* Hero image block uses surface-dark-bright so it sits above the main background. */
+/* Dark: hero image block, header */
 .dark [data-hero-image-block] {
   background-color: #273347 !important;
 }
 
 .dark header {
   background-color: #0e141d !important;
-}
-
-/* Base layout: prevent horizontal scroll; respect safe-area on notched devices. */
-@layer base {
-  html {
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
-  }
-  body {
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-  /* Main adds safe-area horizontal padding; sections use px-4/sm:px-6/lg:px-8 for content. */
-  main {
-    padding-left: env(safe-area-inset-left, 0px);
-    padding-right: env(safe-area-inset-right, 0px);
-  }
-}
-
-/* Proxima Nova: add Regular/Semibold/Bold .woff2 to public/fonts/ for full design system support. */
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
 }
