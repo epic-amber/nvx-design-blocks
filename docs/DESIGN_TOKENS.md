@@ -1,6 +1,16 @@
 # Design system tokens (Tailwind)
 
-Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global overrides (theme, hero, dark mode) are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
+Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global styles and theme overrides are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
+
+---
+
+## Global styles (globals.css)
+
+**Base styles = default (light) theme.** There is no separate “light theme” block; the base layer defines typography (Proxima Nova), layout (html, body, main), default body colors (#ffffff / #101828), and hero layer visibility (light layers visible when `.dark` is not on `html`).
+
+**Dark theme = sub-styles only.** Applied when `.dark` is added to `html`. It overrides: hero layer visibility, body/section/hero text and buttons, header and hero image block colors. It does not duplicate typography or layout.
+
+**Hero mesh and gradients:** The variables `--hero-mesh-*` and `--hero-gradient-*` in `.dark` and `.dark [data-hero-02]` are part of the dark sub-styles; do not rename or change their structure when editing globals.css.
 
 ---
 
@@ -181,14 +191,14 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 
 ## Hero background
 
-Hero background is implemented in the component (mesh + gradients). Light theme: inline styles in HeroBlock. Dark theme: CSS variables in `.dark` (see `globals.css`).
+Hero background is implemented in the component (mesh + gradients). **Base (light):** inline styles in HeroBlock. **Dark sub-styles:** CSS variables `--hero-mesh-color`, `--hero-gradient-horizontal`, `--hero-gradient-overlay` in `.dark` (and `.dark [data-hero-02]` for Hero 02). Do not rename or remove these variables in `globals.css`.
 
-| Layer | Light theme | Dark theme |
-|-------|-------------|------------|
+| Layer | Base (light) | Dark (sub-styles) |
+|-------|--------------|-------------------|
 | Mesh | rgba(223,242,254,0.52), 40×40px, fade mask | `--hero-mesh-color`, 40×40px |
 | Horizontal gradient | mix-blend-multiply, see HeroBlock | `--hero-gradient-horizontal` |
 | Overlay | Top blue tint, bottom fade to white | `--hero-gradient-overlay` (blue tint at top, fade to surface-dark-primary) |
 
-Visibility of light vs dark layers is controlled by `data-hero-bg-light` and `data-hero-bg-dark` in `globals.css`.
+Visibility of light vs dark layers is controlled by `data-hero-bg-light` and `data-hero-bg-dark` in `globals.css` (light set visible by default; dark set visible when `.dark` is on `html`).
 
-**Hero 02 gradient variant (blue only):** Section has `data-hero-02`. Background (surface) and layout in dark theme are the same as Hero 01; only the gradient colors (mesh, horizontal, overlay) use a different blue hue in `.dark [data-hero-02]` — same opacities and structure as Hero 01. Light theme: Hero 02 uses its own lighter blue gradient (mesh, overlay) in the component.
+**Hero 02 gradient variant:** Section has `data-hero-02`. In dark theme, `.dark [data-hero-02]` overrides only the gradient variables (different blue hue/opacity); mesh and structure are shared with Hero 01. Light theme: Hero 02 uses its own gradient in the component.
