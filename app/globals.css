@@ -2,7 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Базовые правила: нет горизонтального скролла, отступы от safe area (вырезы экрана) */
+/*
+ * NVX Design System — Global styles
+ * --------------------------------
+ * - Theme: body and hero colors are forced here so they stay correct when Tailwind
+ *   dark: variants might not apply (e.g. no .dark on html). Do not remove .light/.dark
+ *   body rules.
+ * - Hero: background layers are toggled by data-hero-bg-light / data-hero-bg-dark;
+ *   do not add other opacity/visibility rules that could hide them.
+ * - Dark theme overrides use data-hero-* and .dark so HeroBlock stays in sync
+ *   without duplicating hex values in JSX.
+ */
+
+/* Light theme: lock body to white background and primary text (avoids system dark bleed). */
+html.light body {
+  background-color: #ffffff !important;
+  color: #101828 !important;
+}
+
+/* Hero background layers: only one set visible per theme. Do not target these for other styles. */
+html.light [data-hero-bg-light],
+html:not(.dark) [data-hero-bg-light] {
+  opacity: 1 !important;
+}
+.dark [data-hero-bg-light] {
+  opacity: 0 !important;
+}
+.dark [data-hero-bg-dark] {
+  opacity: 1 !important;
+}
+html.light [data-hero-bg-dark],
+html:not(.dark) [data-hero-bg-dark] {
+  opacity: 0 !important;
+}
+
+/* Dark theme: hero background tokens (used by HeroBlock; edit here to adjust dark hero look). */
+.dark {
+  --hero-mesh-color: rgba(165, 187, 230, 0.15);
+  --hero-gradient-horizontal: linear-gradient(
+    89.998deg,
+    rgba(13, 17, 26, 0) 0%,
+    rgba(26, 59, 139, 0.15) 50%,
+    rgba(13, 17, 26, 0) 100%
+  );
+  --hero-gradient-overlay: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(15, 23, 42, 0.5) 70%,
+      rgb(15, 23, 42) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(30, 64, 130, 0.4) 0%,
+      rgba(26, 59, 139, 0.2) 30%,
+      rgba(15, 23, 42, 0) 55%
+    );
+}
+
+/* Dark theme: override body and hero so correct surface/text always apply (beats any missing dark: in markup). */
+.dark body {
+  background-color: #0f172a !important;
+  color: #e0e0e0 !important;
+}
+
+.dark [data-hero-section] {
+  background-color: #0f172a !important;
+}
+
+/* Hero text hierarchy in dark: breadcrumb/description = secondary; heading/label = primary. */
+.dark [data-hero-breadcrumb],
+.dark [data-hero-description] {
+  color: #8c929b !important;
+}
+
+.dark [data-hero-heading],
+.dark [data-hero-label] {
+  color: #e0e0e0 !important;
+}
+
+/* Hero buttons: primary = filled accent; secondary = text-only accent. */
+.dark [data-hero-btn-primary] {
+  background-color: #3498db !important;
+  color: #ffffff !important;
+}
+
+.dark [data-hero-btn-secondary] {
+  color: #3498db !important;
+}
+
+/* Hero image block uses surface-dark-bright so it sits above the main background. */
+.dark [data-hero-image-block] {
+  background-color: #273347 !important;
+}
+
+.dark header {
+  background-color: #0e141d !important;
+}
+
+/* Base layout: prevent horizontal scroll; respect safe-area on notched devices. */
 @layer base {
   html {
     overflow-x: hidden;
@@ -12,14 +109,14 @@
     overflow-x: hidden;
     min-height: 100vh;
   }
-  /* Доп. отступ от вырезов экрана (iPhone и т.п.); контент уже имеет px-4/sm:px-6/lg:px-8 */
+  /* Main adds safe-area horizontal padding; sections use px-4/sm:px-6/lg:px-8 for content. */
   main {
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
   }
 }
 
-/* Proxima Nova — положите файлы в public/fonts/ */
+/* Proxima Nova: add Regular/Semibold/Bold .woff2 to public/fonts/ for full design system support. */
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");

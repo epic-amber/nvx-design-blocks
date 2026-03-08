@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <main>
       <NavBar />
-      <HeroBlock />
+      <section id="hero" aria-label="Hero">
+        <HeroBlock />
+      </section>
       <section id="features" className="h-screen py-24 md:py-32 lg:py-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-bold text-neutral-900">
