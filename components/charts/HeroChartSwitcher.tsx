@@ -88,7 +88,7 @@ export default function HeroChartSwitcher() {
   return (
     <div className="relative w-full flex-1 overflow-hidden min-h-[287px] sm:min-h-[338px] md:min-h-[396px] lg:min-h-[396px]">
       <div
-        className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.638] sm:scale-75 md:scale-[0.88] lg:scale-[0.88]"
+        className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.638] sm:left-0 sm:translate-x-0 sm:scale-75 sm:origin-top md:scale-[0.88] lg:scale-[0.88]"
         style={{ minHeight: contentHeight }}
       >
         <div className="relative w-full" style={{ minHeight: contentHeight }}>
