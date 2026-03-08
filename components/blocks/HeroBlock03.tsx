@@ -3,10 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { staggerContainer, fadeUp, defaultTransition } from "@/lib/animations";
-
-/** Hero image: 620×384 from public. Keep this aspect ratio when replacing the asset. */
-const HERO_IMAGE = "/images/hero-desktop.png";
-const HERO_ASPECT = 620 / 384;
+import HeroChartSwitcher from "@/components/charts/HeroChartSwitcher";
 
 /** Dashboard logo icon (category slot): 24×24 SVG. Full logo PNG available at /images/logo-dashboard.png. */
 const HERO03_LOGO_ICON = "/images/dashboard-logo.svg";
@@ -190,22 +187,13 @@ export function HeroBlock03() {
 
         <motion.div
           data-hero-image-block
-          className="relative w-full min-w-0 shrink overflow-hidden rounded-lg bg-surface-subtle dark:bg-surface-dark-bright xl:max-w-hero-image"
-          style={{ aspectRatio: String(HERO_ASPECT) }}
+          className="relative flex w-full min-w-0 shrink items-center justify-center overflow-visible rounded-lg bg-surface-subtle dark:bg-surface-dark-bright xl:max-w-hero-image"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={{ ...defaultTransition, delay: 0.2 }}
         >
-          <Image
-            src={HERO_IMAGE}
-            alt=""
-            fill
-            sizes="(max-width: 1279px) 100vw, 620px"
-            className="rounded-lg object-cover"
-            unoptimized
-            priority
-          />
+          <HeroChartSwitcher />
         </motion.div>
       </div>
     </section>

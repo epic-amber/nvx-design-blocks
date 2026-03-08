@@ -177,3 +177,133 @@ html:not(.dark) [data-hero-bg-dark] {
 .dark header {
   background-color: #0e141d !important;
 }
+
+/* ==========================================================================
+   Hero 03 chart animations (from navixy-system-web) — Mileage Distribution & By Weeks
+   ========================================================================== */
+:root {
+  --mileage-primary: #3988da;
+  --mileage-primary-black: #222222;
+}
+
+.mileage-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 22px;
+  box-shadow: 0 2px 4px rgba(57, 136, 218, 0.06), 0 6px 16px rgba(57, 136, 218, 0.1), 0 12px 32px rgba(57, 136, 218, 0.12);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+  animation: mileage-card-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+@keyframes mileage-card-in {
+  to { opacity: 1; transform: none; }
+}
+.mileage-accent-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--mileage-primary) 0%, #72DCFB 33%, #B28FE8 66%, var(--mileage-primary) 100%);
+  background-size: 300% 100%;
+  animation: mileage-shimmer-bar 7s linear infinite;
+}
+@keyframes mileage-shimmer-bar {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+.mileage-header { padding: 22px 28px 0; display: flex; align-items: flex-start; justify-content: space-between; }
+.mileage-header { opacity: 0; animation: mileage-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards; }
+@keyframes mileage-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.mileage-divider {
+  height: 1px; background: #F3F4F6; margin: 16px 28px 0;
+  transform-origin: left; transform: scaleX(0);
+  animation: mileage-grow-x 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
+}
+@keyframes mileage-grow-x { to { transform: scaleX(1); } }
+.mileage-body { display: flex; align-items: center; padding: 20px 28px 18px; gap: 24px; }
+.mileage-chart-wrap { position: relative; flex-shrink: 0; width: 200px; height: 200px; }
+.mileage-donut-track { fill: none; stroke: #F3F4F6; stroke-width: 32; }
+.mileage-seg { fill: none; stroke-width: 32; stroke-linecap: butt; transition: stroke-width 0.3s ease, opacity 0.3s ease; }
+.mileage-seg:hover { stroke-width: 37; cursor: pointer; }
+.mileage-gap-line { stroke: white; stroke-width: 4.5; }
+.mileage-pulse-ring {
+  fill: none; stroke: var(--mileage-primary); stroke-width: 2;
+  transform-origin: 100px 100px;
+  animation: mileage-pulse-ring 5s ease-out 3s infinite;
+}
+@keyframes mileage-pulse-ring {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.37); opacity: 0; }
+}
+.mileage-center-label {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  pointer-events: none; opacity: 0; animation: mileage-fade-in 0.5s ease 1.7s forwards;
+}
+@keyframes mileage-fade-in { to { opacity: 1; } }
+.mileage-legend { flex: 1; display: flex; flex-direction: column; gap: 18px; }
+.mileage-legend-item { padding: 8px 10px; border-radius: 10px; cursor: default; opacity: 0; transition: background 0.2s ease; }
+.mileage-legend-item:hover { background: #F9FAFB; }
+.mileage-legend-item:nth-child(1) { animation: mileage-slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards; }
+.mileage-legend-item:nth-child(2) { animation: mileage-slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 1.22s forwards; }
+.mileage-legend-item:nth-child(3) { animation: mileage-slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 1.39s forwards; }
+@keyframes mileage-slide-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+.mileage-legend-dot {
+  width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  animation: mileage-dot-breath 5s ease-in-out infinite;
+}
+.mileage-dot-work { background: var(--mileage-primary); animation-delay: 0s; }
+.mileage-dot-nonwork { background: #72DCFB; animation-delay: 1s; }
+.mileage-dot-weekend { background: #B28FE8; animation-delay: 2s; }
+@keyframes mileage-dot-breath {
+  0%, 100% { transform: scale(1); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
+  50% { transform: scale(1.25); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25); }
+}
+.mileage-bar-track {
+  height: 4px; border-radius: 99px; margin-left: 19px; overflow: hidden;
+}
+.mileage-bar-fill {
+  height: 100%; border-radius: 99px; min-width: 5px; position: relative; overflow: hidden;
+  transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mileage-bar-fill::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.65) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: mileage-bar-shimmer 3.5s linear infinite;
+}
+@keyframes mileage-bar-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.mileage-bar-work .mileage-bar-track { background: #EFF6FF; }
+.mileage-bar-work .mileage-bar-fill { background: linear-gradient(90deg, #93BFFD, #3988DA); }
+.mileage-bar-nonwork .mileage-bar-track { background: #E8F9FF; }
+.mileage-bar-nonwork .mileage-bar-fill { background: linear-gradient(90deg, #B8EFFE, #72DCFB); }
+.mileage-bar-weekend .mileage-bar-track { background: #F5F3FF; }
+.mileage-bar-weekend .mileage-bar-fill { background: linear-gradient(90deg, #D5BCFF, #B28FE8); }
+.mileage-footer {
+  border-top: 1px solid #F3F4F6; background: #F9FAFB;
+  padding: 11px 28px; display: flex; justify-content: space-between; align-items: center;
+  opacity: 0; animation: mileage-fade-in 0.55s ease 1.9s forwards;
+}
+.mileage-live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--mileage-primary);
+  display: inline-block; margin-right: 5px;
+  animation: mileage-blink 2.8s ease-in-out infinite;
+}
+@keyframes mileage-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.65); }
+}
+.mileage-tooltip {
+  position: fixed; background: var(--mileage-primary-black); color: #fff;
+  font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 8px;
+  pointer-events: none; opacity: 0; white-space: nowrap; z-index: 200;
+  transform: translateY(5px) scale(0.94);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.mileage-meta-updating { opacity: 0.4; }
