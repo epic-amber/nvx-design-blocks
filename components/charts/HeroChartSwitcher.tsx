@@ -86,7 +86,7 @@ export default function HeroChartSwitcher() {
   /* Responsive scale: preserve aspect ratio, no crop. Mobile −15% (~54%); desktop 88%. */
   const contentHeight = 450;
   return (
-    <div className="relative w-full flex-1 overflow-hidden min-h-[244px] sm:min-h-[338px] md:min-h-[396px] lg:min-h-[396px]">
+    <div className="relative w-full flex-1 overflow-visible bg-transparent min-h-[244px] sm:min-h-[338px] md:min-h-[396px] lg:min-h-[396px]">
       <div
         className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.542] sm:left-0 sm:translate-x-0 sm:scale-75 sm:origin-top md:scale-[0.88] lg:scale-[0.88]"
         style={{ minHeight: contentHeight }}

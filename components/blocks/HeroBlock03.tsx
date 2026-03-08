@@ -47,7 +47,7 @@ export function HeroBlock03() {
               linear-gradient(to right, rgba(219,234,254,0.42) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(219,234,254,0.42) 1px, transparent 1px)
             `,
-              backgroundSize: "40px 40px",
+              backgroundSize: "44px 44px",
               maskImage:
                 "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
               WebkitMaskImage:
@@ -79,7 +79,7 @@ export function HeroBlock03() {
               linear-gradient(to right, var(--hero-mesh-color) 1px, transparent 1px),
               linear-gradient(to bottom, var(--hero-mesh-color) 1px, transparent 1px)
             `,
-              backgroundSize: "40px 40px",
+              backgroundSize: "44px 44px",
               maskImage:
                 "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
               WebkitMaskImage:
@@ -187,7 +187,7 @@ export function HeroBlock03() {
 
         <motion.div
           data-hero-image-block
-          className="relative flex w-full min-w-0 shrink items-center justify-center overflow-hidden rounded-lg bg-transparent xl:max-w-hero-image xl:overflow-visible"
+          className="relative flex w-full min-w-0 shrink items-center justify-center overflow-visible rounded-lg bg-transparent xl:max-w-hero-image"
           variants={fadeUp}
           initial="hidden"
           animate="visible"

@@ -36,7 +36,7 @@ export function HeroBlock() {
               linear-gradient(to right, rgba(223,242,254,0.52) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(223,242,254,0.52) 1px, transparent 1px)
             `,
-            backgroundSize: "40px 40px",
+            backgroundSize: "44px 44px",
             maskImage:
               "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
             WebkitMaskImage:
@@ -69,7 +69,7 @@ export function HeroBlock() {
               linear-gradient(to right, var(--hero-mesh-color) 1px, transparent 1px),
               linear-gradient(to bottom, var(--hero-mesh-color) 1px, transparent 1px)
             `,
-              backgroundSize: "40px 40px",
+              backgroundSize: "44px 44px",
               maskImage:
                 "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
               WebkitMaskImage:

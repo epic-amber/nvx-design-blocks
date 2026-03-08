@@ -75,7 +75,7 @@ html:not(.dark) [data-hero-bg-dark] {
 
 /* Hero background tokens: do not modify --hero-mesh-* / --hero-gradient-* names or structure. */
 .dark {
-  --hero-mesh-color: rgba(165, 187, 230, 0.15);
+  --hero-mesh-color: rgba(165, 178, 230, 0.12); /* ~20% less visible (was 0.15) */
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
     rgba(13, 17, 26, 0) 0%,
@@ -85,14 +85,14 @@ html:not(.dark) [data-hero-bg-dark] {
   --hero-gradient-overlay: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
-      rgba(15, 23, 42, 0.5) 70%,
-      rgb(15, 23, 42) 100%
+      rgba(16, 24, 40, 0.5) 70%,
+      rgb(16, 24, 40) 100%
     ),
     linear-gradient(
       180deg,
       rgba(30, 64, 130, 0.4) 0%,
       rgba(26, 59, 139, 0.2) 30%,
-      rgba(15, 23, 42, 0) 55%
+      rgba(16, 24, 40, 0) 55%
     );
 }
 
@@ -106,14 +106,14 @@ html:not(.dark) [data-hero-bg-dark] {
   --hero-gradient-overlay: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
-      rgba(15, 23, 42, 0.5) 70%,
-      rgb(15, 23, 42) 100%
+      rgba(16, 24, 40, 0.5) 70%,
+      rgb(16, 24, 40) 100%
     ),
     linear-gradient(
       180deg,
       rgba(59, 130, 246, 0.28) 0%,
       rgba(37, 99, 235, 0.14) 30%,
-      rgba(15, 23, 42, 0) 55%
+      rgba(16, 24, 40, 0) 55%
     );
 }
 
@@ -121,37 +121,37 @@ html:not(.dark) [data-hero-bg-dark] {
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
     rgba(13, 17, 26, 0) 0%,
-    rgba(59, 130, 246, 0.1) 50%,
+    rgba(0, 132, 209, 0.1) 50%,
     rgba(13, 17, 26, 0) 100%
   );
   --hero-gradient-overlay: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
-      rgba(15, 23, 42, 0.5) 70%,
-      rgb(15, 23, 42) 100%
+      rgba(16, 24, 40, 0.5) 70%,
+      rgb(16, 24, 40) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(59, 130, 246, 0.28) 0%,
-      rgba(37, 99, 235, 0.14) 30%,
-      rgba(15, 23, 42, 0) 55%
+      rgba(0, 132, 209, 0.28) 0%,
+      rgba(0, 132, 209, 0.14) 30%,
+      rgba(16, 24, 40, 0) 55%
     );
 }
 
-/* Dark: body and page surfaces */
+/* Dark: body and page surfaces (neutral blue, no green cast) */
 .dark body {
-  background-color: #0f172a !important;
+  background-color: #101828 !important;
   color: #e0e0e0 !important;
 }
 
 .dark [data-hero-section] {
-  background-color: #0f172a !important;
+  background-color: #101828 !important;
 }
 
 /* Dark: hero text hierarchy */
 .dark [data-hero-breadcrumb],
 .dark [data-hero-description] {
-  color: #8c929b !important;
+  color: #d1d5db !important; /* Tailwind gray-300 */
 }
 
 .dark [data-hero-heading],
@@ -171,11 +171,16 @@ html:not(.dark) [data-hero-bg-dark] {
 
 /* Dark: hero image block, header */
 .dark [data-hero-image-block] {
-  background-color: #273347 !important;
+  background-color: #1e2939 !important; /* neutral blue-gray, no green */
+}
+
+/* Hero 03: chart column has no background (transparent) */
+.dark [data-hero-03] [data-hero-image-block] {
+  background-color: transparent !important;
 }
 
 .dark header {
-  background-color: #0e141d !important;
+  background-color: #0d1117 !important; /* neutral dark */
 }
 
 /* ==========================================================================
