@@ -6,24 +6,25 @@ import { staggerContainer, fadeUp, defaultTransition } from "@/lib/animations";
 
 const IOT_ICON =
   "https://www.figma.com/api/mcp/asset/0b9dc247-0df6-4603-9124-17f7a155bcac";
-const PLACEHOLDER_ICON =
-  "https://www.figma.com/api/mcp/asset/300cc789-1ad3-4394-b9ef-4a44454a3036";
 
-/** Макет Figma: контейнер 1280px, контент 590px, изображение 620×384px, отступы 8/16/20/24px */
+/** Десктоп 620×384, на всех разрешениях — соотношение сторон 620:384. Путь из public. */
+const HERO_IMAGE = "/images/hero-desktop.png";
+const HERO_ASPECT = 620 / 384;
+
+/** Hero: design tokens из tailwind.config (spacing, typography, content colors). */
 export function HeroBlock() {
   return (
-    <section className="relative h-[730px] w-full overflow-hidden bg-white">
-      {/* Фон: mesh внизу, градиенты сверху — сетка мягко исчезает по краям */}
+    <section className="relative min-h-hero w-full overflow-hidden bg-white xl:h-hero">
+      {/* Фон: mesh и градиенты по дизайн-системе (Figma) */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        {/* 1. Mesh — светлая, не навязчивая, с маской затухания сверху/снизу */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(223,242,254,0.35) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(223,242,254,0.35) 1px, transparent 1px)
+              linear-gradient(to right, rgba(223,242,254,0.52) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(223,242,254,0.52) 1px, transparent 1px)
             `,
-            backgroundSize: "48px 48px",
+            backgroundSize: "40px 40px",
             maskImage:
               "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
             WebkitMaskImage:
@@ -32,7 +33,6 @@ export function HeroBlock() {
             WebkitMaskSize: "100% 100%",
           }}
         />
-        {/* 2. Градиенты поверх сетки */}
         <div
           className="absolute inset-0 mix-blend-multiply"
           style={{
@@ -49,27 +49,27 @@ export function HeroBlock() {
         />
       </div>
 
-      {/* Контейнер: 100px сверху — продолжение фона, затем контент 630px */}
-      <div className="relative mx-auto flex min-h-[630px] w-full max-w-[1280px] flex-col items-center justify-center gap-8 px-4 pt-[100px] pb-24 sm:px-6 lg:flex lg:flex-row lg:items-center lg:gap-[70px] lg:px-8">
-        {/* Левый столбец: по Figma Content width 590px, shrink-0 */}
+      {/* Контейнер: max-w-7xl (1280px), отступы по шкале Tailwind (4/6/8), вертикально 12/16/20/24/32 */}
+      <div className="relative mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col items-start justify-center gap-9 overflow-hidden px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-8 lg:py-24 xl:flex xl:flex-row xl:items-center xl:gap-col-gap xl:py-32">
+        {/* Левый столбец */}
         <motion.div
-          className="flex w-full max-w-[590px] flex-col items-start justify-center lg:w-[590px] lg:shrink-0"
+          className="flex min-w-0 shrink max-w-content flex-col items-start justify-center xl:basis-[theme(maxWidth.content)] xl:shrink-0"
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
           transition={defaultTransition}
         >
-          {/* Breadcrumbs: 12px, #62748e, leading 1.2 — отступ снизу 20px */}
+          {/* Breadcrumb: caption (12px), content.muted, отступ снизу 1.25rem (5) */}
           <motion.p
-            className="mb-5 font-body text-hero-eyebrow font-normal text-[#62748e]"
+            className="mb-5 font-body text-caption font-normal uppercase text-content-muted"
             variants={fadeUp}
           >
             Navixy Platform · Data & Analytics
           </motion.p>
 
-          {/* Main container по макету: gap 20px, py-24 */}
-          <div className="flex flex-col gap-5 py-6">
-            {/* Sub container: иконка + заголовок, gap 16px */}
+          {/* Контент: gap-7 (1.75rem) между блоком заголовка, описанием и кнопками; py-6 */}
+          <div className="flex flex-col gap-7 py-6">
+            {/* Иконка + заголовок: gap-4 (1rem) */}
             <motion.div
               className="flex flex-col gap-4"
               variants={staggerContainer}
@@ -91,42 +91,42 @@ export function HeroBlock() {
                     unoptimized
                   />
                 </span>
-                <span className="font-body text-hero-label font-bold text-[#101828]">
+                <span className="font-body text-subtitle font-bold text-content-primary">
                   IoT Query
                 </span>
               </motion.div>
 
               <motion.h1
-                className="font-body text-hero-heading font-bold text-[#101828]"
+                className="font-body text-4xl font-bold text-content-primary md:text-display-1"
                 variants={fadeUp}
               >
                 A Private Lakehouse for telematics data
               </motion.h1>
             </motion.div>
 
-            {/* Подзаголовок: 20px, #1e2939, leading 1.4 */}
+            {/* Описание: mobile 18px (text-lg), sm+ 20px (body-lg), content.secondary */}
             <motion.p
-              className="max-w-[590px] font-body text-hero-body font-normal text-[#1e2939]"
+              className="max-w-content font-body text-lg font-normal text-content-secondary sm:text-body-lg"
               variants={fadeUp}
             >
               Query GPS and IoT streams with SQL instead of stitching together
               APIs, retries, and custom data pipelines.
             </motion.p>
 
-            {/* Кнопки: gap 20px по макету */}
+            {/* Кнопки: gap-5 (1.25rem) mobile, gap-7 (1.75rem) md+ */}
             <motion.div
-              className="flex flex-wrap gap-5"
+              className="flex flex-wrap gap-5 md:gap-7"
               variants={fadeUp}
             >
               <a
                 href="#product"
-                className="flex h-[46px] min-w-[150px] items-center justify-center rounded-[6px] bg-[#0084d1] px-6 py-3.5 font-body text-hero-btn font-semibold text-white transition-opacity hover:opacity-90"
+                className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90"
               >
                 Action button
               </a>
               <a
                 href="#pricing"
-                className="flex h-[46px] items-center justify-center rounded-[6px] px-6 py-3.5 font-body text-hero-btn font-semibold text-[#0084d1] transition-opacity hover:opacity-80"
+                className="flex h-btn items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80"
               >
                 Secondary button
               </a>
@@ -134,24 +134,24 @@ export function HeroBlock() {
           </div>
         </motion.div>
 
-        {/* Правый столбец: изображение 620×384px, на мобильном те же пропорции */}
+        {/* Изображение: пропорции 620:384, max-w-hero-image на xl, placeholder neutral-200 */}
         <motion.div
-          className="mt-12 flex w-full shrink-0 overflow-hidden rounded-lg bg-[#e2e8f0] aspect-[620/384] lg:mt-0 lg:aspect-auto lg:h-[384px] lg:w-[620px]"
+          className="relative w-full min-w-0 shrink overflow-hidden rounded-lg bg-neutral-200 xl:max-w-hero-image"
+          style={{ aspectRatio: String(HERO_ASPECT) }}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={{ ...defaultTransition, delay: 0.2 }}
         >
-          <div className="relative flex h-full w-full items-center justify-center">
-            <Image
-              src={PLACEHOLDER_ICON}
-              alt=""
-              width={129}
-              height={129}
-              className="opacity-60"
-              unoptimized
-            />
-          </div>
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            sizes="(max-width: 1279px) 100vw, 620px"
+            className="rounded-lg object-cover"
+            unoptimized
+            priority
+          />
         </motion.div>
       </div>
     </section>

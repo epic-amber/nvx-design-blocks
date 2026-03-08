@@ -39,21 +39,21 @@ export function NavBar() {
 
   return (
     <motion.header
-      className="fixed left-0 right-0 top-0 z-50 w-full bg-neutral-900"
+      className="sticky left-0 right-0 top-0 z-50 w-full bg-neutral-900"
       style={{ boxShadow: shadow }}
       initial="hidden"
       animate="visible"
       variants={slideDown}
       transition={defaultTransition}
     >
-      <nav className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-8 px-4 text-sm sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-14 min-h-[44px] max-w-7xl flex-wrap items-center justify-between gap-4 px-4 text-sm sm:h-[72px] sm:flex-nowrap sm:gap-6 sm:px-6 lg:gap-8 lg:px-8">
         <a
           href="/"
           className="shrink-0 font-display font-semibold text-white"
         >
           Logo
         </a>
-        <div className="flex items-center gap-8">
+        <div className="flex flex-shrink-0 items-center gap-4 sm:gap-6 lg:gap-8">
           {SECTION_IDS.map((id) => (
             <a
               key={id}

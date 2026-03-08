@@ -1,9 +1,9 @@
 import { HeroBlock } from "@/components/blocks/HeroBlock";
-import { NavBar, NAV_HEIGHT } from "@/components/blocks/NavBar";
+import { NavBar } from "@/components/blocks/NavBar";
 
 export default function Home() {
   return (
-    <main style={{ paddingTop: `${NAV_HEIGHT}px` }}>
+    <main>
       <NavBar />
       <HeroBlock />
       <section id="features" className="h-screen py-24 md:py-32 lg:py-40">
