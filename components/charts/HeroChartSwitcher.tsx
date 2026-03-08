@@ -83,12 +83,12 @@ export default function HeroChartSwitcher() {
   const distributionAnim = activeChart === "distribution" ? "foreground" : "backgroundLeft";
   const byWeeksAnim = activeChart === "byWeeks" ? "foreground" : "backgroundRight";
 
-  /* Responsive scale: preserve aspect ratio, no crop. Content ~560×450px; scale down on small viewports. */
+  /* Responsive scale: preserve aspect ratio, no crop. On desktop scale 95% so background card (x: -24) is not cropped left. */
   const contentHeight = 450;
   return (
-    <div className="relative w-full flex-1 overflow-hidden min-h-[288px] sm:min-h-[338px] md:min-h-[396px] lg:min-h-[450px]">
+    <div className="relative w-full flex-1 overflow-hidden min-h-[288px] sm:min-h-[338px] md:min-h-[396px] lg:min-h-[428px]">
       <div
-        className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.64] sm:scale-75 md:scale-[0.88] lg:scale-100"
+        className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.64] sm:scale-75 md:scale-[0.88] lg:scale-95"
         style={{ minHeight: contentHeight }}
       >
         <div className="relative w-full" style={{ minHeight: contentHeight }}>
