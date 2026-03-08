@@ -83,32 +83,38 @@ export default function HeroChartSwitcher() {
   const distributionAnim = activeChart === "distribution" ? "foreground" : "backgroundLeft";
   const byWeeksAnim = activeChart === "byWeeks" ? "foreground" : "backgroundRight";
 
+  /* Responsive scale: preserve aspect ratio, no crop. Content ~560px; scale down on small viewports. */
   return (
-    <div className="relative min-h-[320px] w-full flex-1 overflow-visible">
-      <div className="relative min-h-[320px] w-full overflow-visible">
-        <motion.div
-          key="distribution"
-          className="absolute inset-0 flex origin-left items-start justify-start"
-          initial={false}
-          animate={distributionAnim}
-          variants={variants}
-          transition={reducedMotion ? TRANSITION_REDUCED : TRANSITION}
-          style={{ pointerEvents: activeChart === "distribution" ? "auto" : "none" }}
-        >
-          <HeroADashboard elevated={activeChart === "distribution"} />
-        </motion.div>
+    <div className="relative w-full flex-1 overflow-hidden min-h-[205px] sm:min-h-[240px] md:min-h-[282px] lg:min-h-[320px]">
+      <div
+        className="absolute left-1/2 top-0 w-[560px] -translate-x-1/2 origin-top scale-[0.64] sm:scale-75 md:scale-[0.88] lg:scale-100"
+        style={{ minHeight: 320 }}
+      >
+        <div className="relative min-h-[320px] w-full">
+          <motion.div
+            key="distribution"
+            className="absolute inset-0 flex origin-left items-start justify-start"
+            initial={false}
+            animate={distributionAnim}
+            variants={variants}
+            transition={reducedMotion ? TRANSITION_REDUCED : TRANSITION}
+            style={{ pointerEvents: activeChart === "distribution" ? "auto" : "none" }}
+          >
+            <HeroADashboard elevated={activeChart === "distribution"} />
+          </motion.div>
 
-        <motion.div
-          key="byWeeks"
-          className="absolute inset-0 flex origin-right items-start justify-start"
-          initial="enterRight"
-          animate={byWeeksAnim}
-          variants={variants}
-          transition={reducedMotion ? TRANSITION_REDUCED : TRANSITION}
-          style={{ pointerEvents: activeChart === "byWeeks" ? "auto" : "none" }}
-        >
-          <MileageChart elevated={activeChart === "byWeeks"} />
-        </motion.div>
+          <motion.div
+            key="byWeeks"
+            className="absolute inset-0 flex origin-right items-start justify-start"
+            initial="enterRight"
+            animate={byWeeksAnim}
+            variants={variants}
+            transition={reducedMotion ? TRANSITION_REDUCED : TRANSITION}
+            style={{ pointerEvents: activeChart === "byWeeks" ? "auto" : "none" }}
+          >
+            <MileageChart elevated={activeChart === "byWeeks"} />
+          </motion.div>
+        </div>
       </div>
     </div>
   );

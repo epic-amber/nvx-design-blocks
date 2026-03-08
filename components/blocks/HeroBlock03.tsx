@@ -187,7 +187,7 @@ export function HeroBlock03() {
 
         <motion.div
           data-hero-image-block
-          className="relative flex w-full min-w-0 shrink items-center justify-center overflow-visible rounded-lg bg-transparent xl:max-w-hero-image"
+          className="relative flex w-full min-w-0 shrink items-center justify-center overflow-hidden rounded-lg bg-transparent xl:max-w-hero-image xl:overflow-visible"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
