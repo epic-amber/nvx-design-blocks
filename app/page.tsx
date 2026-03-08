@@ -1,5 +1,6 @@
 import { HeroBlock } from "@/components/blocks/HeroBlock";
 import { HeroBlock02 } from "@/components/blocks/HeroBlock02";
+import { HeroBlock03 } from "@/components/blocks/HeroBlock03";
 import { NavBar } from "@/components/blocks/NavBar";
 
 export default function Home() {
@@ -16,6 +17,9 @@ export default function Home() {
       </div>
       <section id="hero-02" aria-label="Hero 02">
         <HeroBlock02 />
+      </section>
+      <section id="hero-03" aria-label="Hero 03">
+        <HeroBlock03 />
       </section>
       <section id="features" className="h-screen py-24 md:py-32 lg:py-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -117,6 +117,27 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
+.dark [data-hero-03] {
+  --hero-gradient-horizontal: linear-gradient(
+    89.998deg,
+    rgba(13, 17, 26, 0) 0%,
+    rgba(59, 130, 246, 0.1) 50%,
+    rgba(13, 17, 26, 0) 100%
+  );
+  --hero-gradient-overlay: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(15, 23, 42, 0.5) 70%,
+      rgb(15, 23, 42) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(59, 130, 246, 0.28) 0%,
+      rgba(37, 99, 235, 0.14) 30%,
+      rgba(15, 23, 42, 0) 55%
+    );
+}
+
 /* Dark: body and page surfaces */
 .dark body {
   background-color: #0f172a !important;
