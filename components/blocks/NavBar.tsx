@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { slideDown, defaultTransition } from "@/lib/animations";
 import { useTheme } from "@/lib/ThemeContext";
 
-/** Section ids used for in-page links and active state. Add/remove to match main sections. */
+/** Section ids used for in-page links and active state. Single "hero" link for all hero sections (hero, hero-02, …). */
 const SECTION_IDS = ["hero", "features", "product", "pricing", "about"] as const;
 
 const NAV_HEIGHT = 56;

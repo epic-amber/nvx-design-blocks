@@ -108,7 +108,7 @@ const config: Config = {
         subtitle: ["1.125rem", { lineHeight: "1.2" }],
         /** 20px — body copy on desktop */
         "body-lg": ["1.25rem", { lineHeight: "1.4" }],
-        /** 60px — hero H1 on large screens */
+        /** 60px — hero H1 on large screens. Line-height 1.1 for Hero 01; see DESIGN_TOKENS.md “Line-height rules” and “Mobile breakpoint rules”. */
         "display-1": ["3.75rem", { lineHeight: "1.1" }],
         /** 16px — button label text */
         button: ["1rem", { lineHeight: "1.4" }],
