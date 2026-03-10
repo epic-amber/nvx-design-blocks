@@ -1,6 +1,16 @@
 # Design system tokens (Tailwind)
 
-Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global overrides (theme, hero, dark mode) are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
+Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global styles and theme overrides are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
+
+---
+
+## Global styles (globals.css)
+
+**Base styles = default (light) theme.** There is no separate “light theme” block; the base layer defines typography (Proxima Nova), layout (html, body, main), default body colors (#ffffff / #101828), and hero layer visibility (light layers visible when `.dark` is not on `html`).
+
+**Dark theme = sub-styles only.** Applied when `.dark` is added to `html`. It overrides: hero layer visibility, body/section/hero text and buttons, header and hero image block colors. It does not duplicate typography or layout.
+
+**Hero mesh and gradients:** The variables `--hero-mesh-*` and `--hero-gradient-*` in `.dark` and `.dark [data-hero-02]` are part of the dark sub-styles; do not rename or change their structure when editing globals.css.
 
 ---
 
@@ -40,6 +50,8 @@ Tailwind scale: **1 unit = 0.25rem (4px)**. Use `p-*`, `m-*`, `gap-*`, `space-*`
 
 **Font families:** `font-body` (body and UI), `font-display` (headings). Both use Proxima Nova.
 
+See **“Line-height rules for all headings”** and **“Mobile breakpoint rules (font size)”** below for fixed rules; do not override them without updating the design system.
+
 | Class | Size | Line height | Use for |
 |-------|------|-------------|--------|
 | `text-xs` + `font-semibold` + `uppercase` | 12px (0.75rem) | default | **Breadcrumb** (e.g. "Navixy Platform · Data & Analytics") |
@@ -51,7 +63,36 @@ Tailwind scale: **1 unit = 0.25rem (4px)**. Use `p-*`, `m-*`, `gap-*`, `space-*`
 | `text-display-1` | 60px (3.75rem) | 1.1 | Hero H1 |
 | `text-button` | 16px (1rem) | 1.4 | Button label |
 
-**Responsive:** Hero description — `text-lg` (18px) on mobile, `sm:text-body-lg` (20px) on sm+. Hero H1 — `text-4xl` (36px) on mobile, `md:text-display-1` (60px) on md+.
+**Hero H1 length rule:** If the heading has more characters than "A Private Lakehouse for telematics data" (41), use the smaller size on desktop: `md:text-5xl` (48px) instead of `md:text-display-1` / `md:text-6xl`. Keeps long titles from overwhelming the layout.
+
+---
+
+### Line-height rules for all headings
+
+| Context | Line-height | Tailwind class | Notes |
+|--------|-------------|----------------|--------|
+| **Hero H1 (Hero 01)** | 1.1 | (from `text-display-1` token) | Default; do not add custom leading. |
+| **Hero H1 (Hero 02)** | 1.25 on desktop only | `md:leading-tight` | Apply from `md` breakpoint only; mobile uses default. |
+| **Other headings** (section titles, etc.) | Prefer 1.2–1.25 | `leading-tight` or default | Keep headings compact; use `leading-normal` (1.5) only for long multi-line headings. |
+
+Do not apply custom line-height to hero H1 on mobile; use the default that comes with `text-4xl` (36px).
+
+---
+
+### Mobile breakpoint rules (font size)
+
+**Rule: hero H1 on mobile is 36px for all heroes.**
+
+| Element | Mobile (default) | From `sm` | From `md` |
+|---------|------------------|-----------|-----------|
+| **Hero H1** | **36px (`text-4xl`)** — fixed for all hero blocks | — | 60px (`text-display-1` or `text-6xl`); long titles may use 48px (`text-5xl`) |
+| Hero description | 18px (`text-lg`) | 20px (`text-body-lg`) | — |
+| Breadcrumb | 12px (`text-xs`) | — | — |
+| Category label | 18px (`text-subtitle`) | — | — |
+
+Do not change hero H1 font size on mobile; 36px is the design system rule for all hero headings on small screens.
+
+**Hero 02 description only:** If the description has **more characters** than *"Query GPS and IoT streams with SQL instead of stitching together APIs, retries, and custom data pipelines."* (82 characters), use **`text-lg` + `font-normal`** on all breakpoints (no `sm:text-body-lg`). Shorter descriptions use `text-lg` on mobile and `sm:text-body-lg` (20px) from `sm` as usual.
 
 ---
 
@@ -150,12 +191,14 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 
 ## Hero background
 
-Hero background is implemented in the component (mesh + gradients). Light theme: inline styles in HeroBlock. Dark theme: CSS variables in `.dark` (see `globals.css`).
+Hero background is implemented in the component (mesh + gradients). **Base (light):** inline styles in HeroBlock. **Dark sub-styles:** CSS variables `--hero-mesh-color`, `--hero-gradient-horizontal`, `--hero-gradient-overlay` in `.dark` (and `.dark [data-hero-02]` for Hero 02). Do not rename or remove these variables in `globals.css`.
 
-| Layer | Light theme | Dark theme |
-|-------|-------------|------------|
+| Layer | Base (light) | Dark (sub-styles) |
+|-------|--------------|-------------------|
 | Mesh | rgba(223,242,254,0.52), 40×40px, fade mask | `--hero-mesh-color`, 40×40px |
 | Horizontal gradient | mix-blend-multiply, see HeroBlock | `--hero-gradient-horizontal` |
 | Overlay | Top blue tint, bottom fade to white | `--hero-gradient-overlay` (blue tint at top, fade to surface-dark-primary) |
 
-Visibility of light vs dark layers is controlled by `data-hero-bg-light` and `data-hero-bg-dark` in `globals.css`.
+Visibility of light vs dark layers is controlled by `data-hero-bg-light` and `data-hero-bg-dark` in `globals.css` (light set visible by default; dark set visible when `.dark` is on `html`).
+
+**Hero 02 gradient variant:** Section has `data-hero-02`. In dark theme, `.dark [data-hero-02]` overrides only the gradient variables (different blue hue/opacity); mesh and structure are shared with Hero 01. Light theme: Hero 02 uses its own gradient in the component.

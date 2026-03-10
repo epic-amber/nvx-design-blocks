@@ -4,63 +4,76 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { staggerContainer, fadeUp, defaultTransition } from "@/lib/animations";
 
-const IOT_ICON =
-  "https://www.figma.com/api/mcp/asset/0b9dc247-0df6-4603-9124-17f7a155bcac";
-
 /** Hero image: 620×384 from public. Keep this aspect ratio when replacing the asset. */
 const HERO_IMAGE = "/images/hero-desktop.png";
 const HERO_ASPECT = 620 / 384;
 
+/** Dashboard logo icon (category slot): 24×24 SVG. Full logo PNG available at /images/logo-dashboard.png. */
+const HERO02_LOGO_ICON = "/images/dashboard-logo.svg";
+
+/** Title length threshold: if heading has more characters, use smaller size (text-5xl). */
+const HERO_TITLE_LENGTH_THRESHOLD = "A Private Lakehouse for telematics data".length; // 41
+
+/** Description length threshold: if longer than this, use text-lg font-normal only (no sm:text-body-lg). */
+const HERO_DESCRIPTION_LENGTH_THRESHOLD =
+  "Query GPS and IoT streams with SQL instead of stitching together APIs, retries, and custom data pipelines.".length; // 82
+
+const HERO02_TITLE = "Build deeper fleet dashboards in 1 minute";
+const HERO02_DESCRIPTION =
+  "Navixy Location Intelligence goes beyond the dot on the map—turning real-time GPS data and historical movement patterns into contextual, actionable insights that drive better decisions across your entire operation.";
+
 /**
- * Hero block — above-the-fold section with headline, description, and CTA.
- *
- * Design tokens used (change only via tailwind.config / globals.css):
- * - Surfaces: bg-surface-default, dark:bg-surface-dark-primary; image block uses surface-subtle / surface-dark-bright.
- * - Text: content-primary/secondary/muted (light), text-dark-primary/secondary (dark). Breadcrumb = text-xs font-semibold uppercase.
- * - Buttons: h-btn, min-w-btn-min, rounded-btn, text-button; primary = brand-500 / accent-dark, secondary = text-only.
- * - Layout: max-w-content (text column), max-w-hero-image (image), min-h-hero / h-hero, gap-col-gap on xl.
- *
- * data-hero-* attributes are targeted by globals.css for dark theme overrides; keep them if you add new hero elements.
+ * Hero 02 — duplicate of HeroBlock for customization.
+ * Logo in category slot (Dashboard Studio). Title uses text-5xl when longer than threshold.
  */
-export function HeroBlock() {
+export function HeroBlock02() {
+  const isLongTitle = HERO02_TITLE.length > HERO_TITLE_LENGTH_THRESHOLD;
+  const isLongDescription = HERO02_DESCRIPTION.length > HERO_DESCRIPTION_LENGTH_THRESHOLD;
+  /* DESIGN_TOKENS: “Line-height rules” + “Mobile breakpoint rules”. Mobile: H1 = 36px (text-4xl) for all heroes. Desktop: md:text-6xl or md:text-5xl (long title) + md:leading-tight (1.25) for Hero 02 only. */
+  const titleClassName = isLongTitle
+    ? "font-body text-4xl font-bold text-content-primary dark:text-text-dark-primary md:text-5xl md:leading-tight"
+    : "font-body text-4xl font-bold text-content-primary dark:text-text-dark-primary md:text-6xl md:leading-tight";
+  /* Hero 02 description: if longer than “Query GPS and IoT streams…” (82 chars), use text-lg font-normal only on all breakpoints; otherwise text-lg + sm:text-body-lg. */
+  const descriptionClassName = isLongDescription
+    ? "max-w-content font-body text-lg font-normal text-content-secondary dark:text-text-dark-secondary"
+    : "max-w-content font-body text-lg font-normal text-content-secondary dark:text-text-dark-secondary sm:text-body-lg";
+
   return (
-    <section data-hero-section className="relative min-h-hero w-full overflow-hidden bg-surface-default dark:bg-surface-dark-primary xl:h-hero">
-      {/* Decorative background: two layer sets (light/dark) toggled by globals.css. Do not add layout or interactive children here. */}
+    <section data-hero-section data-hero-02 className="relative min-h-hero w-full overflow-hidden bg-surface-default dark:bg-surface-dark-primary xl:h-hero">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        {/* Light: mesh grid + horizontal gradient + top blue overlay (Figma-spec). */}
+        {/* Hero 02 light theme: blue variant, less bright — mesh and overlay slightly darker than before. */}
         <div data-hero-bg-light className="absolute inset-0">
           <div
             className="absolute inset-0"
             style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(223,242,254,0.52) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(223,242,254,0.52) 1px, transparent 1px)
+              backgroundImage: `
+              linear-gradient(to right, rgba(219,234,254,0.42) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(219,234,254,0.42) 1px, transparent 1px)
             `,
-            backgroundSize: "44px 44px",
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
-            maskSize: "100% 100%",
-            WebkitMaskSize: "100% 100%",
-          }}
-        />
-        <div
-          className="absolute inset-0 mix-blend-multiply"
-          style={{
-            background:
-              "linear-gradient(89.998deg, rgba(189,227,255,0) 3.13%, rgba(125,192,240,0) 27.89%, rgba(125,192,240,0) 46.64%, rgba(125,192,240,0) 70.67%, rgba(189,227,255,0) 100%)",
-          }}
-        />
-        <div
+              backgroundSize: "44px 44px",
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+              maskSize: "100% 100%",
+              WebkitMaskSize: "100% 100%",
+            }}
+          />
+          <div
+            className="absolute inset-0 mix-blend-multiply"
+            style={{
+              background:
+                "linear-gradient(89.998deg, rgba(219,234,254,0) 3.13%, rgba(147,197,253,0.06) 27.89%, rgba(147,197,253,0.06) 46.64%, rgba(147,197,253,0.06) 70.67%, rgba(219,234,254,0) 100%)",
+            }}
+          />
+          <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0) 81.98%, rgb(255,255,255) 96.34%), linear-gradient(180deg, rgba(255,255,255,0) 31.06%, rgba(189,227,255,0) 96.76%), linear-gradient(180deg, rgb(184,230,254) 0%, rgba(255,255,255,0) 27.5%)",
+                "linear-gradient(180deg, rgba(255,255,255,0) 81.98%, rgb(255,255,255) 96.34%), linear-gradient(180deg, rgba(255,255,255,0) 31.06%, rgba(219,234,254,0) 96.76%), linear-gradient(180deg, rgb(184,230,254) 0%, rgba(255,255,255,0) 27.5%)",
             }}
           />
         </div>
-        {/* Dark: same structure, values from .dark CSS vars (--hero-mesh-color, --hero-gradient-*). */}
         <div data-hero-bg-dark className="absolute inset-0">
           <div
             className="absolute inset-0"
@@ -89,9 +102,7 @@ export function HeroBlock() {
         </div>
       </div>
 
-      {/* Content container: 1280px max, responsive padding (px-4 → sm:px-6 → lg:px-8), vertical rhythm py-12 → py-32. On xl, two columns with gap-col-gap. */}
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col items-start justify-center gap-9 overflow-hidden px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-8 lg:py-24 xl:flex xl:flex-row xl:items-center xl:gap-col-gap xl:py-32">
-        {/* Left column: max-w-content (590px). Use this width so long headlines don’t overstretch. */}
         <motion.div
           className="flex min-w-0 shrink max-w-content flex-col items-start justify-center xl:basis-[theme(maxWidth.content)] xl:shrink-0"
           variants={staggerContainer}
@@ -99,7 +110,6 @@ export function HeroBlock() {
           animate="visible"
           transition={defaultTransition}
         >
-          {/* Breadcrumb: design system standard is text-xs + font-semibold + uppercase. Use content-muted (light) / text-dark-secondary (dark). Spacing: mb-5 (1.25rem). */}
           <motion.p
             data-hero-breadcrumb
             className="mb-5 font-body text-xs font-semibold uppercase text-content-muted dark:text-text-dark-secondary"
@@ -108,11 +118,7 @@ export function HeroBlock() {
             Navixy Platform · Data & Analytics
           </motion.p>
 
-          {/* Vertical stack: gap-7 (1.75rem) between label+headline, description, and buttons. py-6 for internal rhythm. */}
           <div className="flex flex-col gap-7 py-6">
-            {/* CATEGORY SLOT — vibe coders / content: replace icon + text with your own.
-                Sizes: icon 24×24px (container h-6 w-6), gap between icon and text 8px (gap-2).
-                Text: text-subtitle (18px), font-bold. gap-4 (16px) between this row and H1 below. */}
             <motion.div
               className="flex flex-col gap-4"
               variants={staggerContainer}
@@ -120,46 +126,46 @@ export function HeroBlock() {
               animate="visible"
               transition={defaultTransition}
             >
+              {/* Category slot: Dashboard Studio icon (24×24) + label. Design system: h-6 w-6, gap-2. */}
               <motion.div
                 className="flex items-center gap-2"
                 variants={fadeUp}
               >
                 <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded">
                   <Image
-                    src={IOT_ICON}
-                    alt=""
+                    src={HERO02_LOGO_ICON}
+                    alt="Dashboard Studio"
                     width={24}
                     height={24}
-                    className="object-cover"
+                    className="object-contain"
                     unoptimized
                   />
                 </span>
-                <span data-hero-label className="font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary">
-                  IoT Query
+                <span
+                  data-hero-label
+                  className="font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary"
+                >
+                  Dashboard Studio
                 </span>
               </motion.div>
 
-              {/* Hero H1: design system — mobile 36px (text-4xl) for all heroes; md+ text-display-1 (60px). Line-height: default (display-1 = 1.1). See DESIGN_TOKENS.md “Line-height rules” and “Mobile breakpoint rules”. */}
               <motion.h1
                 data-hero-heading
-                className="font-body text-4xl font-bold text-content-primary dark:text-text-dark-primary md:text-display-1"
+                className={titleClassName}
                 variants={fadeUp}
               >
-                A Private Lakehouse for telematics data
+                {HERO02_TITLE}
               </motion.h1>
             </motion.div>
 
-            {/* Body copy: text-content-secondary (light) / text-dark-secondary (dark). Responsive size: text-lg on mobile, text-body-lg from sm. max-w-content keeps line length readable. */}
             <motion.p
               data-hero-description
-              className="max-w-content font-body text-lg font-normal text-content-secondary dark:text-text-dark-secondary sm:text-body-lg"
+              className={descriptionClassName}
               variants={fadeUp}
             >
-              Query GPS and IoT streams with SQL instead of stitching together
-              APIs, retries, and custom data pipelines.
+              {HERO02_DESCRIPTION}
             </motion.p>
 
-            {/* CTA group: use h-btn and rounded-btn for tap targets. Primary = filled (brand-500 / accent-dark), min-w-btn-min. Secondary = text only, same brand/accent. gap-5 on mobile, gap-7 from md. */}
             <motion.div
               className="flex flex-wrap gap-5 md:gap-7"
               variants={fadeUp}
@@ -182,7 +188,6 @@ export function HeroBlock() {
           </div>
         </motion.div>
 
-        {/* Right column (xl): image container. Keep aspect ratio 620:384; max-w-hero-image caps width. Background = surface-subtle (light) / surface-dark-bright (dark) for loading/placeholder. */}
         <motion.div
           data-hero-image-block
           className="relative w-full min-w-0 shrink overflow-hidden rounded-lg bg-surface-subtle dark:bg-surface-dark-bright xl:max-w-hero-image"
