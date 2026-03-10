@@ -1,12 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { slideDown, defaultTransition } from "@/lib/animations";
 import { useTheme } from "@/lib/ThemeContext";
 
-/** Section ids used for in-page links and active state. Single "hero" link for all hero sections (hero, hero-02, …). */
+/** Section ids for in-page links; design-system is a route. */
 const SECTION_IDS = ["hero", "features", "product", "pricing", "about"] as const;
+
+const NAV_ITEMS: { id: string; label: string; href: string }[] = [
+  ...SECTION_IDS.map((id) => ({ id, label: id, href: `#${id}` })),
+  { id: "design-system", label: "Design System", href: "/design-system" },
+];
 
 const NAV_HEIGHT = 56;
 
@@ -27,30 +34,40 @@ function MoonIcon({ className }: { className?: string }) {
   );
 }
 
+function BurgerIcon({ className, open }: { className?: string; open: boolean }) {
+  return (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+      {open ? (
+        <path d="M18 6L6 18M6 6l12 12" />
+      ) : (
+        <>
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 /**
- * Sticky top navigation with section links and theme toggle.
- *
- * Design tokens: bg-surface-inverse (light) / bg-surface-dark-secondary (dark). Links use
- * text-text-inverse (active) and text-text-inverse-muted (inactive); active link has bottom
- * border. Theme button is 36×36px (h-9 w-9), no focus ring. Height: h-12 / sm:h-14; min-h-[44px]
- * for touch. Container matches page: max-w-7xl, px-4/sm:px-6/lg:px-8.
- *
- * Active section is derived from IntersectionObserver (rootMargin -30% -60%); ensure section
- * ids match SECTION_IDS and exist in the DOM.
+ * Sticky top navigation with section links, Design System link, and theme toggle.
+ * Mobile: burger icon opens overlay with links. Desktop: inline links.
  */
 export function NavBar() {
+  const pathname = usePathname();
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { scrollY } = useScroll();
-  /** Shadow increases on scroll for depth; keep range [0, 20] in sync with header height if changed. */
   const shadow = useTransform(
     scrollY,
     [0, 20],
     ["0 1px 3px 0 rgb(0 0 0 / 0.1)", "0 4px 6px -1px rgb(0 0 0 / 0.2)"]
   );
 
-  /** Track which section is in view to highlight the corresponding nav link. */
+  const isDesignSystem = pathname === "/design-system";
+
   useEffect(() => {
+    if (isDesignSystem) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -62,13 +79,57 @@ export function NavBar() {
       },
       { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
     );
-
     SECTION_IDS.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [isDesignSystem]);
+
+  const effectiveActiveId = isDesignSystem ? "design-system" : activeId;
+
+  const navLinks = (
+    <>
+      {NAV_ITEMS.map((item) => {
+        const isActive = effectiveActiveId === item.id;
+        const isHash = item.href.startsWith("#");
+        const href = isHash && pathname !== "/" ? `/${item.href}` : item.href;
+        const content = (
+          <>
+            {item.label}
+            {isActive && (
+              <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-text-inverse dark:bg-text-inverse" />
+            )}
+          </>
+        );
+        const className = `relative capitalize transition-colors hover:text-text-inverse ${
+          isActive ? "text-text-inverse" : "text-text-inverse-muted"
+        }`;
+        if (isHash) {
+          return (
+            <a
+              key={item.id}
+              href={href}
+              className={className}
+              onClick={() => setMobileOpen(false)}
+            >
+              {content}
+            </a>
+          );
+        }
+        return (
+          <Link
+            key={item.id}
+            href={item.href}
+            className={className}
+            onClick={() => setMobileOpen(false)}
+          >
+            {content}
+          </Link>
+        );
+      })}
+    </>
+  );
 
   return (
     <motion.header
@@ -79,22 +140,31 @@ export function NavBar() {
       variants={slideDown}
       transition={defaultTransition}
     >
-      <nav className="mx-auto flex h-12 min-h-[44px] max-w-7xl flex-wrap items-center justify-end gap-4 px-4 text-sm sm:h-14 sm:flex-nowrap sm:gap-6 sm:px-6 lg:gap-8 lg:px-8">
-        <div className="flex flex-shrink-0 items-center gap-4 sm:gap-6 lg:gap-8">
-          {SECTION_IDS.map((id) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`relative capitalize transition-colors hover:text-text-inverse ${
-                activeId === id ? "text-text-inverse" : "text-text-inverse-muted"
-              }`}
-            >
-              {id}
-              {activeId === id && (
-                <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-text-inverse" />
-              )}
-            </a>
-          ))}
+      <nav className="mx-auto flex h-12 min-h-[44px] max-w-7xl items-center justify-end gap-4 px-4 text-sm sm:h-14 sm:gap-6 sm:px-6 lg:gap-8 lg:px-8">
+        {/* Desktop: always visible links */}
+        <div className="hidden flex-shrink-0 items-center gap-4 md:flex md:gap-6 lg:gap-8">
+          {navLinks}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-text-inverse transition-opacity hover:opacity-80 focus:outline-none"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </div>
+
+        {/* Mobile: burger + theme, and overlay when open */}
+        <div className="flex flex-shrink-0 items-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileOpen((o) => !o)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-text-inverse transition-opacity hover:opacity-80 focus:outline-none"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            <BurgerIcon open={mobileOpen} />
+          </button>
           <button
             type="button"
             onClick={toggleTheme}
@@ -105,6 +175,41 @@ export function NavBar() {
           </button>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="absolute left-0 right-0 top-full z-40 border-t border-white/10 bg-surface-inverse dark:bg-surface-dark-secondary md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="flex flex-col gap-1 px-4 py-4">
+              {NAV_ITEMS.map((item) => {
+                const isActive = effectiveActiveId === item.id;
+                const isHash = item.href.startsWith("#");
+                const href = isHash && pathname !== "/" ? `/${item.href}` : item.href;
+                const className = `rounded-lg px-4 py-3 text-left capitalize transition-colors ${
+                  isActive ? "bg-white/10 text-text-inverse" : "text-text-inverse-muted hover:bg-white/5 hover:text-text-inverse"
+                }`;
+                if (isHash) {
+                  return (
+                    <a key={item.id} href={href} className={className} onClick={() => setMobileOpen(false)}>
+                      {item.label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link key={item.id} href={item.href} className={className} onClick={() => setMobileOpen(false)}>
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
