@@ -14,6 +14,7 @@ import type { Config } from "tailwindcss";
  */
 const config: Config = {
   darkMode: "class",
+  safelist: [{ pattern: /^text-(section-title|heading-4xl)$/ }],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -72,7 +73,7 @@ const config: Config = {
           "primary-foreground": "#ffffff",
           secondary: "#0084d1",
         },
-        /** Text on inverse/dark surfaces (e.g. navbar). Use for nav links and icons. */
+        /** Text on inverse/dark surfaces. Use for links and icons on dark blocks. */
         "text-inverse": {
           DEFAULT: "#ffffff",
           muted: "#a1a1aa",
@@ -87,7 +88,7 @@ const config: Config = {
         /** Dark theme text hierarchy. Use with dark: prefix. */
         "text-dark": {
           primary: "#E0E0E0",
-          secondary: "#8C929B",
+          secondary: "#e5e7eb", /* gray-200 — body text in dark theme */
           placeholder: "#9DA5B3",
           tertiary: "#CCCCCC",
         },
@@ -106,6 +107,10 @@ const config: Config = {
         caption: ["0.75rem", { lineHeight: "1.2" }],
         /** 18px — section labels (e.g. "IoT Query") above headings */
         subtitle: ["1.125rem", { lineHeight: "1.2" }],
+        /** 36px (4xl) — section headings; use with font-bold (e.g. "Telematics platform to innovate and scale globally") */
+        "heading-4xl": ["2.25rem", { lineHeight: "1.3" }],
+        /** 36px — alias for section headings (same as heading-4xl) */
+        "section-title": ["2.25rem", { lineHeight: "1.3" }],
         /** 20px — body copy on desktop */
         "body-lg": ["1.25rem", { lineHeight: "1.4" }],
         /** 60px — hero H1 on large screens. Line-height 1.1 for Hero 01; see DESIGN_TOKENS.md “Line-height rules” and “Mobile breakpoint rules”. */
@@ -116,6 +121,10 @@ const config: Config = {
       spacing: {
         /** 70px — gap between hero text and image columns on xl */
         "col-gap": "4.375rem",
+        /** 60px — gap between columns in two-column blocks (e.g. text+img) */
+        "section-gap": "3.75rem",
+        /** 100px — vertical padding for content sections (e.g. text+img) */
+        "section-py": "6.25rem",
         /** 46px — button height (h-btn) */
         btn: "2.875rem",
         /** 150px — primary button min-width (min-w-btn-min) */
@@ -124,6 +133,8 @@ const config: Config = {
       maxWidth: {
         /** 590px — hero text column width */
         content: "36.875rem",
+        /** 603px — text+img list column (Figma); reuse for similar blocks */
+        "content-list": "37.6875rem",
         /** 620px — hero image column max width */
         "hero-image": "38.75rem",
       },
@@ -134,6 +145,10 @@ const config: Config = {
       height: {
         /** 630px — hero section fixed height on xl */
         hero: "39.375rem",
+        /** text+img block image: mobile → sm → lg */
+        "text-img-mobile": "280px",
+        "text-img-sm": "340px",
+        "text-img": "390px",
       },
       borderRadius: {
         "2xl": "1rem",

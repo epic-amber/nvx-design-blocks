@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { NavBar } from "@/components/blocks/NavBar";
 
 /* DESIGN_TOKENS.md — Spacing table */
 const SPACING = [
@@ -27,7 +26,7 @@ const SPACING_CUSTOM = [
 /* DESIGN_TOKENS.md — Light theme surfaces */
 const LIGHT_SURFACES = [
   { token: "surface-default", class: "bg-surface-default", hex: "#ffffff", use: "Page and section background (e.g. Hero)" },
-  { token: "surface-inverse", class: "bg-surface-inverse", hex: "#18181b", use: "Inverted area (navbar)" },
+  { token: "surface-inverse", class: "bg-surface-inverse", hex: "#18181b", use: "Inverted/dark block background" },
   { token: "surface-subtle", class: "bg-surface-subtle", hex: "#e4e4e7", use: "Cards, image placeholders" },
 ] as const;
 
@@ -42,7 +41,7 @@ const DARK_SURFACES = [
 /* DESIGN_TOKENS.md — Light theme content */
 const LIGHT_CONTENT = [
   { token: "content-primary", class: "text-content-primary", hex: "#101828", use: "Headings, primary text" },
-  { token: "content-secondary", class: "text-content-secondary", hex: "#1e2939", use: "Descriptions, secondary text" },
+  { token: "content-secondary", class: "text-content-secondary", hex: "#1e2939", use: "Descriptions, secondary text (light)" },
   { token: "content-muted", class: "text-content-muted", hex: "#62748e", use: "Breadcrumb, hints, tertiary text" },
 ] as const;
 
@@ -62,7 +61,7 @@ const TEXT_INVERSE = [
 /* DESIGN_TOKENS.md — Dark theme text */
 const DARK_CONTENT = [
   { token: "text-dark-primary", class: "dark:text-text-dark-primary", hex: "#E0E0E0", use: "Headings, primary text" },
-  { token: "text-dark-secondary", class: "dark:text-text-dark-secondary", hex: "#8C929B", use: "Descriptions, breadcrumb, muted" },
+  { token: "text-dark-secondary", class: "dark:text-text-dark-secondary", hex: "#e5e7eb", use: "Body text, descriptions in dark theme (gray-200)" },
   { token: "text-dark-placeholder", class: "dark:text-text-dark-placeholder", hex: "#9DA5B3", use: "Input placeholder" },
   { token: "text-dark-tertiary", class: "dark:text-text-dark-tertiary", hex: "#CCCCCC", use: "Tertiary text" },
 ] as const;
@@ -76,7 +75,6 @@ const DARK_ACCENT_BORDERS = [
 export default function DesignSystemPage() {
   return (
     <main className="min-h-screen bg-surface-default dark:bg-surface-dark-primary">
-      <NavBar />
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="mb-16 border-b border-neutral-200 pb-12 dark:border-border-dark">
           <h1 className="font-display text-3xl font-bold tracking-tight text-content-primary dark:text-text-dark-primary sm:text-4xl">
@@ -200,7 +198,7 @@ export default function DesignSystemPage() {
         {/* Colors — Light theme text on dark surfaces (DESIGN_TOKENS.md) */}
         <section className="mb-20" aria-labelledby="colors-text-inverse">
           <h2 id="colors-text-inverse" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
-            Colors · Light theme — text on dark surfaces (e.g. navbar)
+            Colors · Light theme — text on dark surfaces
           </h2>
           <div className="dark rounded-xl bg-surface-dark-secondary p-6">
             <div className="flex flex-wrap gap-6">
@@ -310,6 +308,16 @@ export default function DesignSystemPage() {
               <p className="font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary">Hero category slot</p>
               <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-subtitle · 18px (1.125rem) · 1.2</p>
               <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Hero category slot (icon + label above H1, e.g. &quot;IoT Query&quot;)</p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
+              <p className="font-display text-heading-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">Section heading (4xl bold)</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-heading-4xl + font-bold · 36px (2.25rem) · 1.3</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Заголовки секций (e.g. &quot;Telematics platform to innovate and scale globally&quot;)</p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
+              <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">Длинные описания в секциях (text+img): абзацы и пункты списка.</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-base + leading-[1.4] · 16px (1rem) · 1.4</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Используется при большом объёме текста (e.g. text+img 01, 02)</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
               <p className="font-body text-body-lg text-content-secondary dark:text-text-dark-secondary">Body copy on desktop</p>

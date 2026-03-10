@@ -138,10 +138,9 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
-/* Dark: body and page surfaces (neutral blue, no green cast) */
+/* Dark: body and page surfaces; body text from Tailwind token dark:text-text-dark-secondary (tailwind.config.ts) */
 .dark body {
   background-color: #101828 !important;
-  color: #e0e0e0 !important;
 }
 
 .dark [data-hero-section] {

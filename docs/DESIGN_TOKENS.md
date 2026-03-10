@@ -1,6 +1,6 @@
 # Design system tokens (Tailwind)
 
-Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global styles and theme overrides are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
+Reference for anyone using the NVX design system: tokens live in `tailwind.config.ts`; global styles and theme overrides are in `app/globals.css`. Use semantic tokens (e.g. `text-content-primary`, `bg-surface-dark-primary`) instead of raw colors so light/dark and future theme changes stay consistent. **Avoid hardcoding** repeated values (e.g. `py-[100px]`, `max-w-[603px]`) in components—add a token in `tailwind.config.ts` and document it here so the system can grow consistently. For motion, use variants and `defaultTransition` from `lib/animations.ts`.
 
 ---
 
@@ -39,10 +39,14 @@ Tailwind scale: **1 unit = 0.25rem (4px)**. Use `p-*`, `m-*`, `gap-*`, `space-*`
 | Class | Value | Use for |
 |-------|--------|--------|
 | `col-gap` | 4.375rem (70px) | xl: gap between hero columns |
+| `section-gap` | 3.75rem (60px) | Gap between columns in two-column blocks (e.g. text+img) |
+| `section-py` | 6.25rem (100px) | Vertical padding for content sections (`py-section-py`) |
 | `btn` | 2.875rem (46px) | Button height (`h-btn`) |
 | `btn-min` | 9.375rem (150px) | Primary button min-width (`min-w-btn-min`) |
 
 **Container padding:** `px-4` (mobile) → `sm:px-6` → `lg:px-8`.
+
+**Section / blocks:** Prefer tokens over raw values: `py-section-py`, `gap-section-gap`, `max-w-content-list`, `h-text-img-mobile` / `h-text-img-sm` / `h-text-img` for text+img image column. New repeated values should be added to `tailwind.config.ts` and documented here.
 
 ---
 
@@ -57,6 +61,9 @@ See **“Line-height rules for all headings”** and **“Mobile breakpoint rule
 | `text-xs` + `font-semibold` + `uppercase` | 12px (0.75rem) | default | **Breadcrumb** (e.g. "Navixy Platform · Data & Analytics") |
 | `text-caption` | 12px (0.75rem) | 1.2 | Small metadata, captions (optional alternative to text-xs) |
 | `text-subtitle` | 18px (1.125rem) | 1.2 | **Hero category slot** (icon + label above H1, e.g. "IoT Query") |
+| `text-heading-4xl` | 36px (2.25rem) | 1.3 | **Section headings, 4xl bold** (e.g. «Telematics platform to innovate and scale globally»). Use with `font-bold`. |
+| `text-section-title` | 36px (2.25rem) | 1.3 | Alias for `text-heading-4xl` (section headings) |
+| `text-base` | 16px (1rem) | 1.4 | **Длинные описания в контентных секциях** (e.g. text+img: абзацы и пункты списка). Use with `font-body`, `leading-[1.4]`, `text-content-secondary`. |
 
 **Hero category slot (icon + text):** Customizable slot for vibe coders — swap icon and label per product/campaign. Icon **24×24px** (use `h-6 w-6` container, `<Image width={24} height={24} />`). Label **18px**, `font-bold`, `text-subtitle`. Gap between icon and label **8px** (`gap-2`). Gap below to H1 **16px** (`gap-4`).
 | `text-body-lg` | 20px (1.25rem) | 1.4 | Body copy on desktop |
@@ -103,7 +110,7 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
 | surface-default | `bg-surface-default` | #ffffff | Page and section background (e.g. Hero) |
-| surface-inverse | `bg-surface-inverse` | #18181b | Inverted area (navbar) |
+| surface-inverse | `bg-surface-inverse` | #18181b | Inverted/dark block background |
 | surface-subtle | `bg-surface-subtle` | #e4e4e7 | Cards, image placeholders |
 
 ### Light theme — content (text hierarchy)
@@ -111,7 +118,7 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
 | content-primary | `text-content-primary` | #101828 | Headings, primary text |
-| content-secondary | `text-content-secondary` | #1e2939 | Descriptions, secondary text |
+| content-secondary | `text-content-secondary` | #1e2939 | Descriptions, secondary text (light theme) |
 | content-muted | `text-content-muted` | #62748e | Breadcrumb, hints, tertiary text |
 
 ### Light theme — buttons
@@ -122,12 +129,12 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 | button-primary-foreground | `text-button-primary-foreground` | #ffffff | Text on primary button |
 | button-secondary | `text-button-secondary` | #0084d1 | Secondary (ghost) button text |
 
-### Light theme — text on dark surfaces (e.g. navbar)
+### Light theme — text on dark surfaces
 
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
-| text-inverse | `text-text-inverse` | #ffffff | Active nav link, icons on dark bg |
-| text-inverse-muted | `text-text-inverse-muted` | #a1a1aa | Inactive nav link |
+| text-inverse | `text-text-inverse` | #ffffff | Primary text, links and icons on dark blocks |
+| text-inverse-muted | `text-text-inverse-muted` | #a1a1aa | Muted text on dark blocks |
 
 ### Dark theme — surfaces
 
@@ -145,7 +152,7 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
 | text-dark-primary | `dark:text-text-dark-primary` | #E0E0E0 | Headings, primary text |
-| text-dark-secondary | `dark:text-text-dark-secondary` | #8C929B | Descriptions, breadcrumb, muted |
+| text-dark-secondary | `dark:text-text-dark-secondary` | #e5e7eb (gray-200) | Body text, descriptions in dark theme |
 | text-dark-placeholder | `dark:text-text-dark-placeholder` | #9DA5B3 | Input placeholder |
 | text-dark-tertiary | `dark:text-text-dark-tertiary` | #CCCCCC | Tertiary text |
 
@@ -176,6 +183,7 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 |-------|--------|--------|
 | `max-w-7xl` | 80rem (1280px) | Section container |
 | `max-w-content` | 36.875rem (590px) | Hero text column |
+| `max-w-content-list` | 37.6875rem (603px) | Text+img list column; reuse for similar blocks |
 | `max-w-hero-image` | 38.75rem (620px) | Hero image column |
 
 ---
@@ -186,6 +194,8 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 |-------|--------|--------|
 | `min-h-hero` | 39.375rem (630px) | Hero section (mobile/tablet) |
 | `h-hero` | 39.375rem (630px) | Hero section (xl) |
+
+**Height (blocks):** Text+img image column: `h-text-img-mobile` (280px) → `sm:h-text-img-sm` (340px) → `lg:h-text-img` (390px).
 
 ---
 
