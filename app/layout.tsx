@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/ThemeContext";
+import { NavBar } from "@/components/blocks/NavBar";
 
 export const metadata: Metadata = {
   title: "NVX Design Blocks",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 /**
  * Root layout: theme and base body styles.
  * - Inline script in <head> applies theme from localStorage (key: nvx-theme) before paint to avoid flash; adds .light or .dark to <html>. Do not remove.
- * - body: font-body, antialiased; light = bg-white + text-content-primary; dark = bg-surface-dark-primary + text-text-dark-primary. ThemeProvider syncs toggle with DOM and storage.
+ * - body: font-body, antialiased; light = bg-white + text-content-primary; dark = bg-surface-dark-primary + text-text-dark-secondary (#e5e7eb gray-200). ThemeProvider syncs toggle with DOM and storage.
  */
 export default function RootLayout({
   children,
@@ -26,8 +27,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-body antialiased bg-white text-content-primary dark:bg-surface-dark-primary dark:text-text-dark-primary">
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="font-body antialiased bg-white text-content-primary dark:bg-surface-dark-primary dark:text-text-dark-secondary">
+        <ThemeProvider>
+          <NavBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

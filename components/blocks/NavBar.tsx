@@ -8,10 +8,14 @@ import { slideDown, defaultTransition } from "@/lib/animations";
 import { useTheme } from "@/lib/ThemeContext";
 
 /** Section ids for in-page links; design-system is a route. */
-const SECTION_IDS = ["hero", "features", "product", "pricing", "about"] as const;
+const SECTION_IDS = ["hero", "text-img", "features", "product", "pricing", "about"] as const;
 
 const NAV_ITEMS: { id: string; label: string; href: string }[] = [
-  ...SECTION_IDS.map((id) => ({ id, label: id, href: `#${id}` })),
+  ...SECTION_IDS.map((id) => ({
+    id,
+    label: id === "text-img" ? "text+img" : id,
+    href: `#${id}`,
+  })),
   { id: "design-system", label: "Design System", href: "/design-system" },
 ];
 
@@ -51,6 +55,7 @@ function BurgerIcon({ className, open }: { className?: string; open: boolean }) 
 /**
  * Sticky top navigation with section links, Design System link, and theme toggle.
  * Mobile: burger icon opens overlay with links. Desktop: inline links.
+ * Used only on the design system page for visual reference.
  */
 export function NavBar() {
   const pathname = usePathname();
