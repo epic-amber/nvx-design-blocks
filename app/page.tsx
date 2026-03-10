@@ -1,7 +1,9 @@
 import { HeroBlock } from "@/components/blocks/HeroBlock";
 import { HeroBlock02 } from "@/components/blocks/HeroBlock02";
 import { HeroBlock03 } from "@/components/blocks/HeroBlock03";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { CheckCircleIcon } from "@/components/icons/CheckCircleIcon";
+import { SolutionLogoIcon } from "@/components/icons/SolutionLogoIcon";
 
 export default function Home() {
   return (
@@ -87,12 +89,16 @@ export default function Home() {
                 Button (optional)
               </a>
             </div>
-            {/* Right column: image — aspect ratio сохраняется при адаптации (≈5:3 по макету), object-cover без искажений */}
-            <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3] bg-surface-subtle dark:bg-surface-dark-bright">
+            {/* Right column: image — анимированный синий фон + картинка */}
+            <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3]">
+              <div
+                className="absolute inset-0 bg-gradient-shift bg-[linear-gradient(90deg,#0084d1_0%,#38bdf8_50%,#0084d1_100%)] dark:bg-[linear-gradient(90deg,#1e3a8a_0%,#38bdf8_50%,#1e3a8a_100%)] animate-gradient-shift"
+                aria-hidden
+              />
               <img
-                src="/public-images/placeholder-image.jpg"
+                src="/images/img-product.png"
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-center scale-[0.92] -translate-x-[10%] translate-y-[5%]"
               />
             </div>
           </div>
@@ -110,12 +116,16 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-16">
-            {/* Left column on lg: image (order-1); on mobile — ниже текста (order-2) */}
-            <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3] bg-surface-subtle dark:bg-surface-dark-bright order-2 lg:order-1">
+            {/* Left column on lg: image (order-1); on mobile — ниже текста (order-2); анимированный синий фон */}
+            <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3] order-2 lg:order-1">
+              <div
+                className="absolute inset-0 bg-gradient-shift bg-[linear-gradient(90deg,#0084d1_0%,#38bdf8_50%,#0084d1_100%)] dark:bg-[linear-gradient(90deg,#1e3a8a_0%,#38bdf8_50%,#1e3a8a_100%)] animate-gradient-shift"
+                aria-hidden
+              />
               <img
-                src="/public-images/placeholder-image.jpg"
+                src="/images/img-product.png"
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-center scale-[0.92] -translate-x-[10%] translate-y-[5%]"
               />
             </div>
             {/* Right column on lg: text (order-2), сужено; on mobile — первым (order-1) */}
@@ -178,11 +188,71 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="features" className="h-screen py-24 md:py-32 lg:py-40">
+      <div className="border-t border-neutral-200 bg-white px-4 py-3 text-center dark:border-border-dark dark:bg-surface-dark-primary sm:px-6 lg:px-8">
+        <p className="font-body text-xs text-content-muted dark:text-text-dark-secondary">
+          features 01
+        </p>
+      </div>
+      {/* ─── Features 01 (Figma 8034:83652) — 3 cards, design system tokens ─────
+          Card: bg-white, dark:bg-surface-dark-bright; border-neutral-200, dark:border-border-dark; rounded-lg (8px); p-6.
+          Icon box: 60×60, bg-brand-500/15, rounded-lg. Title: font-display font-semibold text-xl leading-[1.3] text-content-primary. Body: text-sm leading-[1.4] text-content-secondary. Link: text-sm text-brand-500 dark:text-accent-dark + ArrowRightIcon.
+      ───────────────────────────────────────────────────────────────────────── */}
+      <section
+        id="features"
+        className="bg-surface-default py-24 dark:bg-surface-dark-primary md:py-section-py lg:py-section-py"
+        aria-label="Features"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-neutral-900">
-            Features
-          </h2>
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Default card name",
+                body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven.",
+                href: "#",
+              },
+              {
+                title: "Default card name",
+                body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven operations. Make data-driven decisions. Make data-drive...",
+                href: "#",
+              },
+              {
+                title: "Default card name",
+                body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven operations. Make data-driven decisions. Make data-drive...",
+                href: "#",
+              },
+            ].map((card, i) => (
+              <article
+                key={i}
+                className="flex min-h-0 flex-1 flex-col rounded-lg border border-neutral-200 bg-white p-6 dark:border-border-dark dark:bg-slate-800"
+              >
+                <div className="flex flex-col gap-9">
+                  <div
+                    className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-lg bg-brand-500/15 dark:bg-accent-dark/15"
+                    aria-hidden
+                  >
+                    <SolutionLogoIcon className="h-[35px] w-[36px] text-brand-500 dark:text-accent-dark" />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-3">
+                      <h3 className="font-display text-xl font-semibold leading-[1.3] text-content-primary dark:text-text-dark-primary">
+                        {card.title}
+                      </h3>
+                      <p className="line-clamp-4 font-body text-sm leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                        {card.body}
+                      </p>
+                    </div>
+                    <a
+                      href={card.href}
+                      className="inline-flex items-center gap-1.5 font-body text-sm leading-[1.4] text-brand-500 hover:underline dark:text-accent-dark"
+                    >
+                      See solutions
+                      <ArrowRightIcon className="h-[18px] w-[18px] shrink-0" />
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
       <section id="product" className="min-h-[50vh] py-24 md:py-32 lg:py-40">

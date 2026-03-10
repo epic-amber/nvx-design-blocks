@@ -155,6 +155,26 @@ const config: Config = {
         /** 6px — buttons and form inputs */
         btn: "0.375rem",
       },
+      keyframes: {
+        /** Лёгкая пульсация фона в блоках text+img */
+        "bg-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.88" },
+        },
+        /** Медленный сдвиг градиента по горизонтали (5–8 сек) */
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
+      },
+      animation: {
+        "bg-pulse": "bg-pulse 4s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 6s ease-in-out infinite",
+      },
+      backgroundSize: {
+        /** Для анимации gradient-shift: градиент в 2× шире контейнера */
+        "gradient-shift": "200% 100%",
+      },
     },
   },
   plugins: [],
