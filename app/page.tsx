@@ -92,7 +92,7 @@ export default function Home() {
             {/* Right column: image — анимированный синий фон + картинка */}
             <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3]">
               <div
-                className="absolute inset-0 bg-gradient-shift bg-[linear-gradient(90deg,#0084d1_0%,#38bdf8_50%,#0084d1_100%)] dark:bg-[linear-gradient(90deg,#1e3a8a_0%,#38bdf8_50%,#1e3a8a_100%)] animate-gradient-shift"
+                className="absolute -inset-6 bg-gradient-shift animate-gradient-shift blur-xl bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,#1a96d6_0%,#0084d1_40%,#0069b3_75%,#044878_100%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,#38bdf8_0%,#2548a2_35%,#1e3a8a_70%,transparent_100%)]"
                 aria-hidden
               />
               <img
@@ -119,7 +119,7 @@ export default function Home() {
             {/* Left column on lg: image (order-1); on mobile — ниже текста (order-2); анимированный синий фон */}
             <div className="relative min-w-0 w-full overflow-hidden rounded-btn aspect-[5/3] order-2 lg:order-1">
               <div
-                className="absolute inset-0 bg-gradient-shift bg-[linear-gradient(90deg,#0084d1_0%,#38bdf8_50%,#0084d1_100%)] dark:bg-[linear-gradient(90deg,#1e3a8a_0%,#38bdf8_50%,#1e3a8a_100%)] animate-gradient-shift"
+                className="absolute -inset-6 bg-gradient-shift animate-gradient-shift blur-xl bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,#1a96d6_0%,#0084d1_40%,#0069b3_75%,#044878_100%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,#38bdf8_0%,#2548a2_35%,#1e3a8a_70%,transparent_100%)]"
                 aria-hidden
               />
               <img
@@ -203,28 +203,31 @@ export default function Home() {
         aria-label="Features"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Default card name",
                 body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven.",
-                href: "#",
+                href: "https://www.navixy.com/en/iot-logic",
               },
               {
                 title: "Default card name",
                 body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven operations. Make data-driven decisions. Make data-drive...",
-                href: "#",
+                href: "",
               },
               {
                 title: "Default card name",
                 body: "Deliver efficiency and uncompromised security of assets even if taken to most remote locations. Streamline manual operations. Make data-driven decisions. Make data-driven operations. Make data-driven decisions. Make data-drive...",
-                href: "#",
+                href: "",
               },
             ].map((card, i) => (
               <article
                 key={i}
-                className="flex min-h-0 flex-1 flex-col rounded-lg border border-neutral-200 bg-white p-6 dark:border-border-dark dark:bg-slate-800"
+                className={`relative mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col rounded-lg border border-slate-100 bg-white p-6 shadow-md dark:border-slate-800 dark:bg-[#131F3B] ${card.href ? "transition-shadow duration-300 ease-out hover:shadow-xl dark:hover:shadow-glow-blue-card" : ""}`}
               >
+                {card.href ? (
+                  <a href={card.href} className="absolute inset-0 z-10 rounded-lg" aria-label={`${card.title}, open link`} />
+                ) : null}
                 <div className="flex flex-col gap-9">
                   <div
                     className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-lg bg-brand-500/15 dark:bg-accent-dark/15"
@@ -241,13 +244,15 @@ export default function Home() {
                         {card.body}
                       </p>
                     </div>
-                    <a
-                      href={card.href}
-                      className="inline-flex items-center gap-1.5 font-body text-sm leading-[1.4] text-brand-500 hover:underline dark:text-accent-dark"
-                    >
-                      See solutions
-                      <ArrowRightIcon className="h-[18px] w-[18px] shrink-0" />
-                    </a>
+                    {card.href ? (
+                      <a
+                        href={card.href}
+                        className="group inline-flex items-center gap-1.5 font-body text-sm leading-[1.4] text-brand-500 no-underline hover:no-underline dark:text-accent-dark"
+                      >
+                        See solutions
+                        <ArrowRightIcon className="h-[18px] w-[18px] shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </article>
