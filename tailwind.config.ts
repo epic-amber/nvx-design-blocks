@@ -174,10 +174,16 @@ const config: Config = {
           "0%": { backgroundPosition: "0% 50%" },
           "100%": { backgroundPosition: "100% 50%" },
         },
+        /** CTA banner: squares in mesh — появление/исчезновение */
+        "squares-fade": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "bg-pulse": "bg-pulse 4s ease-in-out infinite",
         "gradient-shift": "gradient-shift 10s ease-in-out infinite",
+        "squares-fade": "squares-fade 4s ease-in-out infinite",
       },
       backgroundSize: {
         /** Для анимации gradient-shift: градиент в 2× шире контейнера */
