@@ -176,10 +176,10 @@ export function HeroBlock03() {
               </a>
               <a
                 href="#pricing"
-                data-hero-btn-secondary
+                data-hero-btn-link
                 className="flex h-btn items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark"
               >
-                Secondary button
+                Link button
               </a>
             </motion.div>
           </div>
