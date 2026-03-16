@@ -78,12 +78,13 @@ const config: Config = {
           DEFAULT: "#ffffff",
           muted: "#a1a1aa",
         },
-        /** Dark theme surfaces. Primary = main background (#0F172A); secondary = header/sidebars; bright = cards; input = form fields. */
+        /** Dark theme surfaces. Primary = main background (#0F172A); secondary = header/sidebars; bright = cards; input = form fields. card = custom fill for feature/card blocks (override with your hex). */
         "surface-dark": {
           primary: "#0F172A",
           secondary: "#0E141D",
           bright: "#273347",
           input: "#1B2533",
+          card: "#131F3B",
         },
         /** Dark theme text hierarchy. Use with dark: prefix. */
         "text-dark": {
@@ -155,21 +156,34 @@ const config: Config = {
         /** 6px — buttons and form inputs */
         btn: "0.375rem",
       },
+      boxShadow: {
+        /** Лёгкая тень для карточек (features и др.) */
+        xs: "0 1px 2px 0 rgb(0 0 0 / 0.04)",
+        /** Два слоя: глубина + голубое свечение (карточки со ссылкой в тёмной теме, hover) */
+        "glow-blue-card":
+          "0 10px 15px -3px rgb(0 0 0 / 0.12), 0 25px 50px -12px rgba(0, 132, 209, 0.4)",
+      },
       keyframes: {
         /** Лёгкая пульсация фона в блоках text+img */
         "bg-pulse": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.88" },
         },
-        /** Медленный сдвиг градиента по горизонтали (5–8 сек) */
+        /** Медленный сдвиг градиента по горизонтали (плавное пятно, 10s) */
         "gradient-shift": {
           "0%": { backgroundPosition: "0% 50%" },
           "100%": { backgroundPosition: "100% 50%" },
         },
+        /** CTA banner: squares in mesh — появление/исчезновение */
+        "squares-fade": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "bg-pulse": "bg-pulse 4s ease-in-out infinite",
-        "gradient-shift": "gradient-shift 6s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 10s ease-in-out infinite",
+        "squares-fade": "squares-fade 4s ease-in-out infinite",
       },
       backgroundSize: {
         /** Для анимации gradient-shift: градиент в 2× шире контейнера */

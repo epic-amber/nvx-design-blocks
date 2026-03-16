@@ -164,7 +164,7 @@ html:not(.dark) [data-hero-bg-dark] {
   color: #ffffff !important;
 }
 
-.dark [data-hero-btn-secondary] {
+.dark [data-hero-btn-link] {
   color: #3498db !important;
 }
 
