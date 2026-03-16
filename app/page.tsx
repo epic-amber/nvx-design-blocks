@@ -4,6 +4,7 @@ import { HeroBlock03 } from "@/components/blocks/HeroBlock03";
 import { ActivityZoneIcon } from "@/components/icons/ActivityZoneIcon";
 import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { CheckCircleIcon } from "@/components/icons/CheckCircleIcon";
+import { CtaMeshSvg } from "@/components/CtaMeshSvg";
 import { SolutionLogoIcon } from "@/components/icons/SolutionLogoIcon";
 
 export default function Home() {
@@ -39,7 +40,7 @@ export default function Home() {
           - Container: max-w-7xl, px-4 sm:px-6 lg:px-8 (design system container).
           - Grid: gap-16 (64px); текстовая колонка lg:max-w-content (590px).
           - Heading: font-display, text-4xl, font-bold, leading-[1.3], text-content-primary, dark:text-text-dark-primary.
-          - Body / list: font-body, text-base (16px), leading-[1.4], text-content-secondary, dark:text-text-dark-secondary.
+          - Body / list: font-body, text-xl (20px), leading-[1.4], text-content-secondary, dark:text-text-dark-secondary.
           - List: max-w-content-list (token); gap-3 (icon–text), gap-6 (items). Checkmark icon: text-brand-500, dark:text-accent-dark.
           - Optional button: font-body, text-subtitle, font-semibold, text-brand-500, dark:text-accent-dark.
           - Image: rounded-btn, h-text-img-mobile sm:h-text-img-sm lg:h-text-img (tokens).
@@ -53,12 +54,12 @@ export default function Home() {
           <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-16">
             <div className="flex flex-col gap-7 lg:max-w-content">
               <div className="flex flex-col gap-7">
-                <h2 className="font-display text-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">
+                <h2 className="font-display text-3xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary md:text-4xl">
                   Telematics platform to innovate
                   <br />
                   and scale globally
                 </h2>
-                <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                <p className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                   Take advantage of the latest generative AI innovations with easy access to a choice of high-performing
                   models from leading AI companies like AI21 Labs, Anthropic, Cohere, DeepSeek, Luma AI, Meta, Mistral
                   AI, OpenAI, Qwen, Stability AI, TwelveLabs, Writer, and Amazon.
@@ -69,7 +70,7 @@ export default function Home() {
                   <span className="mt-0.5 shrink-0 text-brand-500 dark:text-accent-dark" aria-hidden>
                     <CheckCircleIcon className="h-6 w-6" />
                   </span>
-                  <span className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                  <span className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                     We reduced customer support calls by 40% by sending a geo-link with every delivery confirmation.
                   </span>
                 </li>
@@ -77,7 +78,7 @@ export default function Home() {
                   <span className="mt-0.5 shrink-0 text-brand-500 dark:text-accent-dark" aria-hidden>
                     <CheckCircleIcon className="h-6 w-6" />
                   </span>
-                  <span className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                  <span className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                     Using Navixy&apos;s Time Machine, we replayed the exact route and proved our van was at their
                     secondary gate. Case closed in 5 minutes.
                   </span>
@@ -132,7 +133,7 @@ export default function Home() {
             {/* Right column on lg: text (order-2), сужено; on mobile — первым (order-1) */}
             <div className="flex flex-col gap-7 order-1 lg:order-2 lg:max-w-content">
               <div className="flex flex-col gap-7">
-                <h2 className="font-display text-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">
+                <h2 className="font-display text-3xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary md:text-4xl">
                   Explore Location Intelligence
                 </h2>
                 <div className="flex gap-3 items-start">
@@ -143,7 +144,7 @@ export default function Home() {
                     <p className="font-body text-subtitle font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">
                       Last-Mile Transparency
                     </p>
-                    <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                    <p className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                       Get full visibility into delivery operations and resolve disputes in minutes. See how fleets use
                       Navixy for last-mile transparency and proof of delivery.
                     </p>
@@ -159,7 +160,7 @@ export default function Home() {
                     <p className="font-body text-subtitle font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">
                       Last-Mile Transparency
                     </p>
-                    <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                    <p className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                       We reduced customer support calls by 40% by sending a geo-link with every delivery confirmation.
                     </p>
                   </div>
@@ -172,7 +173,7 @@ export default function Home() {
                     <p className="font-body text-subtitle font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">
                       Time Machine
                     </p>
-                    <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                    <p className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
                       Using Navixy&apos;s Time Machine, we replayed the exact route and proved our van was at their
                       secondary gate. Case closed in 5 minutes.
                     </p>
@@ -272,7 +273,7 @@ export default function Home() {
         aria-label="Features 02"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary mb-12 md:mb-14">
+          <h2 className="font-display text-3xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary mb-12 md:mb-14 md:text-4xl">
             Features 02 heading
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -344,7 +345,7 @@ export default function Home() {
         aria-label="Features 03"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary mb-12 text-center md:mb-14">
+          <h2 className="font-display text-3xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary mb-12 text-center md:mb-14 md:text-4xl">
             Features 03 heading
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -400,7 +401,7 @@ export default function Home() {
           <div className="mt-12 flex justify-center md:mt-14">
             <a
               href="#"
-              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn border-2 border-brand-500 bg-transparent px-6 py-3.5 font-body text-button font-semibold text-brand-500 transition-opacity hover:bg-brand-500/10 hover:opacity-90 dark:border-accent-dark dark:text-accent-dark dark:hover:bg-accent-dark/10"
+              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn border-[1.5px] border-brand-500 bg-transparent px-6 py-3.5 font-body text-button font-semibold text-brand-500 transition-opacity hover:bg-brand-500/10 hover:opacity-90 dark:border-accent-dark dark:text-accent-dark dark:hover:bg-accent-dark/10"
               aria-label="View all features"
             >
               View all features
@@ -408,109 +409,49 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="product" className="min-h-[50vh] py-24 md:py-32 lg:py-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-neutral-900">
-            Product
-          </h2>
-        </div>
-      </section>
-      <section id="pricing" className="min-h-[50vh] py-24 md:py-32 lg:py-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-neutral-900">
-            Pricing
-          </h2>
-        </div>
-      </section>
-      <section id="about" className="min-h-[50vh] py-24 md:py-32 lg:py-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold text-neutral-900">
-            About
-          </h2>
-        </div>
-      </section>
       {/* ─── CTA (Figma 8053:48260) — gradient block, heading + description + primary button ─── */}
       <section id="cta" className="py-24 md:py-section-py lg:py-section-py" aria-label="Call to action">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Border gradient: light — ref (6% #D9EFFF, 37% #40BFFF, 66% #86CCFE, 89% #B0E5FF); dark — analogous darker blues */}
           <div
-            className="relative flex flex-col items-center justify-center overflow-hidden rounded-lg border border-slate-100 p-6 text-center shadow-md dark:border-slate-800 md:p-section-gap bg-gradient-to-b from-white via-white to-brand-200 dark:from-[#131F3B] dark:via-surface-dark-primary dark:to-surface-dark-primary"
+            className="rounded-lg p-[1px] shadow-md bg-[linear-gradient(to_right,#C0EAF7_0%,#C0EAF7_10%,#B0E5FF_16%,#86CCFE_32%,#C0EAF7_38%,#C0EAF7_62%,#40BFFF_68%,#C0EAF7_80%,#C0EAF7_92%,#5BB8FF_96%)] dark:bg-[linear-gradient(to_right,#3d6a9e_6%,#2d5a87_37%,#3498db_66%,#1e3a5f_89%)]"
           >
-            {/* Mesh pattern — gradient sky-200 → sky-400, fades from bottom; light theme only. Grid as single SVG mask so full lines (not dots) show. */}
             <div
-              className="pointer-events-none absolute inset-0 rounded-lg dark:opacity-0"
-              style={{
-                backgroundImage: "linear-gradient(to bottom, #bae6fd 0%, #38bdf8 100%)",
-                maskImage: `linear-gradient(to bottom, transparent 0%, transparent 45%, black 85%, black 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M0 0h1v44H0zM0 0h44v1H0z' fill='white'/%3E%3C/svg%3E")`,
-                maskSize: "100% 100%, 44px 44px",
-                maskRepeat: "no-repeat, repeat",
-                maskComposite: "intersect",
-                WebkitMaskImage: `linear-gradient(to bottom, transparent 0%, transparent 45%, black 85%, black 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M0 0h1v44H0zM0 0h44v1H0z' fill='white'/%3E%3C/svg%3E")`,
-                WebkitMaskSize: "100% 100%, 44px 44px",
-                WebkitMaskRepeat: "no-repeat, repeat",
-                WebkitMaskComposite: "source-in",
-              } as React.CSSProperties}
-              aria-hidden
-            />
-            {/* 9 голубых квадратов без обводки — позиции по референсу (сетка 44×44); light theme only; анимация появления/исчезновения */}
+              className="relative flex flex-col items-center justify-center overflow-hidden rounded-[7px] px-6 py-8 text-center md:px-section-gap md:py-[4.25rem] bg-gradient-to-b from-white via-white to-brand-200 dark:from-[#131F3B] dark:via-surface-dark-primary dark:to-surface-dark-primary"
+            >
+            {/* Mesh + квадраты: светлая тема — градиент sky-200→sky-400, квадраты sky-300; тёмная — mesh и квадраты sky-400. */}
             <div
-              className="pointer-events-none absolute inset-0 rounded-lg dark:opacity-0"
+              className="pointer-events-none absolute inset-0 z-[1] rounded-[7px]"
               style={{
-                maskImage: "linear-gradient(to bottom, transparent 0%, transparent 45%, black 85%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 0%, transparent 30%, black 70%, black 100%)",
                 maskSize: "100% 100%",
-                WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 45%, black 85%, black 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 30%, black 70%, black 100%)",
                 WebkitMaskSize: "100% 100%",
               } as React.CSSProperties}
               aria-hidden
             >
-              <div className="absolute bottom-0 left-0 grid h-[264px] grid-cols-[repeat(24,44px)] grid-rows-[repeat(6,44px)] gap-0 animate-squares-fade" style={{ width: "min(100%, 1056px)" }}>
-                {[
-                  { row: 1, col: 1 },
-                  { row: 1, col: 3 },
-                  { row: 1, col: 6 },
-                  { row: 1, col: 13 },
-                  { row: 2, col: 1 },
-                  { row: 2, col: 3 },
-                  { row: 2, col: 8 },
-                  { row: 3, col: 7 },
-                  { row: 4, col: 9 },
-                ].map(({ row, col }, i) => (
-                  <div
-                    key={i}
-                    className="m-[4px] h-[36px] w-[36px] rounded-sm bg-sky-300"
-                    style={{ gridRow: row, gridColumn: col }}
-                  />
-                ))}
-              </div>
+              <CtaMeshSvg />
             </div>
+            {/* Decorative circles — above mesh/squares (z-[2]); light: #74D4FF, #53EAFD; dark: sky-500, blue-500 */}
             <div
-              className="pointer-events-none absolute inset-0 rounded-lg opacity-0 dark:opacity-100 [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_45%,black_85%,black_100%)] [mask-size:100%_100%] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_45%,black_85%,black_100%)] [-webkit-mask-size:100%_100%]"
-              style={{
-                backgroundImage: `
-                  linear-gradient(to right, var(--hero-mesh-color) 1px, transparent 1px),
-                  linear-gradient(to bottom, var(--hero-mesh-color) 1px, transparent 1px)
-                `,
-                backgroundSize: "44px 44px",
-              }}
-              aria-hidden
-            />
-            {/* Decorative circles — layer blue uniform 300, plus darker (light); dark: sky-500 / blue-500 */}
-            <div
-              className="absolute bottom-0 left-0 h-[300px] w-[300px] -translate-x-1/2 translate-y-1/2 rounded-full bg-[#74D4FF] opacity-60 blur-[150px] mix-blend-darken pointer-events-none dark:bg-sky-500 dark:opacity-100 dark:mix-blend-normal"
+              className="absolute bottom-0 left-0 z-[2] h-[300px] w-[300px] -translate-x-1/2 translate-y-1/2 rounded-full bg-[#74D4FF] opacity-60 blur-[150px] mix-blend-darken pointer-events-none dark:bg-sky-500 dark:opacity-100 dark:mix-blend-normal"
               aria-hidden
             />
             <div
-              className="absolute bottom-0 right-0 h-[300px] w-[300px] translate-x-1/2 translate-y-1/2 rounded-full bg-[#53EAFD] opacity-60 blur-[150px] mix-blend-darken pointer-events-none dark:bg-blue-500 dark:opacity-100 dark:mix-blend-normal"
+              className="absolute bottom-0 right-0 z-[2] h-[300px] w-[300px] translate-x-1/2 translate-y-1/2 rounded-full bg-[#53EAFD] opacity-60 blur-[150px] mix-blend-darken pointer-events-none dark:bg-blue-500 dark:opacity-100 dark:mix-blend-normal"
               aria-hidden
             />
             <div className="relative z-10 flex flex-col items-center">
               <div className="flex flex-col gap-4">
-                <h2 className="font-display text-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary md:text-5xl">
+                <h2 className="font-display text-3xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary md:text-4xl">
                   Get Field Visibility That Actually Works.{" "}
                   <br className="md:block" aria-hidden />
                   Start Today.
                 </h2>
-                <p className="font-body text-xl leading-[1.4] text-content-secondary dark:text-text-dark-secondary md:text-2xl">
-                  Operations managers use Navixy FSM to dispatch faster, reduce check-in calls, and prove every job. Deploy in days, not months.
+                <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">
+                  Operations managers use Navixy FSM to dispatch faster, reduce check-in calls, and prove every job.{" "}
+                  <br aria-hidden />
+                  Deploy in days, not months.
                 </p>
               </div>
               <div className="mt-6">
@@ -526,6 +467,7 @@ export default function Home() {
                 No hardware required. Works on any smartphone. Free trial.
               </p>
             </div>
+          </div>
           </div>
         </div>
       </section>

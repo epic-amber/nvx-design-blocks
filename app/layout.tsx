@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/ThemeContext";
 import { NavBar } from "@/components/blocks/NavBar";
+import { ThemeToggleFloating } from "@/components/blocks/ThemeToggleFloating";
 
 export const metadata: Metadata = {
   title: "NVX Design Blocks",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <ThemeProvider>
           <NavBar />
           {children}
+          <ThemeToggleFloating />
         </ThemeProvider>
       </body>
     </html>

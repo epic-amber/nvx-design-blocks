@@ -1,11 +1,9 @@
 "use client";
 
+import { IoTQueryIcon } from "@/components/icons/IoTQueryIcon";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { staggerContainer, fadeUp, defaultTransition } from "@/lib/animations";
-
-const IOT_ICON =
-  "https://www.figma.com/api/mcp/asset/0b9dc247-0df6-4603-9124-17f7a155bcac";
 
 /** Hero image: 620×384 from public. Keep this aspect ratio when replacing the asset. */
 const HERO_IMAGE = "/images/hero-desktop.png";
@@ -124,15 +122,8 @@ export function HeroBlock() {
                 className="flex items-center gap-2"
                 variants={fadeUp}
               >
-                <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded">
-                  <Image
-                    src={IOT_ICON}
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="object-cover"
-                    unoptimized
-                  />
+                <span className="relative flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded text-content-primary dark:text-text-dark-primary">
+                  <IoTQueryIcon className="h-6 w-6" />
                 </span>
                 <span data-hero-label className="font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary">
                   IoT Query
