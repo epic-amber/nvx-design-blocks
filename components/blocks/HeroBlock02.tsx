@@ -167,20 +167,20 @@ export function HeroBlock02() {
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-5 md:gap-7"
+              className="flex w-full flex-col gap-5 md:flex-row md:gap-7"
               variants={fadeUp}
             >
               <a
                 href="#product"
                 data-hero-btn-primary
-                className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark"
+                className="flex h-btn w-full items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark md:min-w-btn-min md:w-auto"
               >
                 Action button
               </a>
               <a
                 href="#pricing"
                 data-hero-btn-link
-                className="flex h-btn items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark"
+                className="flex h-btn w-full items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark md:w-auto"
               >
                 Link button
               </a>

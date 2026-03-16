@@ -1,16 +1,12 @@
 import type { Config } from "tailwindcss";
 
 /**
- * NVX Design System — Tailwind theme extension
- * -------------------------------------------
- * Prefer semantic tokens over raw values so themes and future changes stay consistent.
- *
- * Quick reference:
- * - Spacing: 1 unit = 4px (e.g. gap-4, py-12). Custom: col-gap, btn, btn-min.
- * - Typography: breadcrumb = text-xs font-semibold uppercase; labels = text-subtitle; body = text-body-lg; hero H1 = text-display-1; buttons = text-button.
- * - Light surfaces: bg-surface-default | surface-inverse | surface-subtle. Text: text-content-primary | secondary | muted.
- * - Dark theme: use dark: prefix with surface-dark-*, text-dark-*, accent-dark. See globals.css for .dark overrides.
- * - Full token list and usage: docs/DESIGN_TOKENS.md
+ * NVX Design System — Tailwind theme (tailwind.config.ts)
+ * ------------------------------------------------------
+ * Design tokens live here: colors, fonts, spacing, shadows, radius.
+ * Use semantic classes (e.g. text-content-primary, bg-surface-default) so light/dark stay in sync.
+ * Quick ref: spacing 1 = 4px; surfaces = surface-default, surface-dark-primary; text = content-primary, text-dark-primary.
+ * Full list: docs/DESIGN_TOKENS.md
  */
 const config: Config = {
   darkMode: "class",
@@ -112,7 +108,7 @@ const config: Config = {
         "heading-4xl": ["2.25rem", { lineHeight: "1.3" }],
         /** 36px — alias for section headings (same as heading-4xl) */
         "section-title": ["2.25rem", { lineHeight: "1.3" }],
-        /** 20px — body copy on desktop */
+        /** 20px — Hero description on desktop (text-body-lg); Hero blocks: paragraph under H1, sm:text-body-lg */
         "body-lg": ["1.25rem", { lineHeight: "1.4" }],
         /** 60px — hero H1 on large screens. Line-height 1.1 for Hero 01; see DESIGN_TOKENS.md “Line-height rules” and “Mobile breakpoint rules”. */
         "display-1": ["3.75rem", { lineHeight: "1.1" }],
@@ -157,19 +153,29 @@ const config: Config = {
         btn: "0.375rem",
       },
       boxShadow: {
-        /** Лёгкая тень для карточек (features и др.) */
-        xs: "0 1px 2px 0 rgb(0 0 0 / 0.04)",
-        /** Два слоя: глубина + голубое свечение (карточки со ссылкой в тёмной теме, hover) */
+        /** Shadows with a light blue tint (#00A6F4) */
+        sm: "0 1px 2px 0 rgba(0, 166, 244, 0.07)",
+        DEFAULT:
+          "0 1px 3px 0 rgba(0, 166, 244, 0.09), 0 1px 2px -1px rgba(0, 166, 244, 0.06)",
+        md: "0 4px 6px -1px rgba(0, 166, 244, 0.11), 0 2px 4px -2px rgba(0, 166, 244, 0.08)",
+        lg: "0 10px 15px -3px rgba(0, 166, 244, 0.13), 0 4px 6px -4px rgba(0, 166, 244, 0.08)",
+        xl: "0 20px 25px -5px rgba(0, 166, 244, 0.15), 0 8px 10px -6px rgba(0, 166, 244, 0.1)",
+        "2xl": "0 25px 50px -12px rgba(0, 166, 244, 0.18)",
+        /** Very subtle shadow (CTA banner, etc.) */
+        "2xs": "0 1px 2px 0 rgba(0, 166, 244, 0.04)",
+        /** Light shadow for cards */
+        xs: "0 1px 2px 0 rgba(0, 166, 244, 0.06)",
+        /** Two layers: depth + blue glow (link cards in dark theme, hover) */
         "glow-blue-card":
-          "0 10px 15px -3px rgb(0 0 0 / 0.12), 0 25px 50px -12px rgba(0, 132, 209, 0.4)",
+          "0 10px 15px -3px rgb(0 0 0 / 0.12), 0 25px 50px -12px rgba(0, 166, 244, 0.45)",
       },
       keyframes: {
-        /** Лёгкая пульсация фона в блоках text+img */
+        /** Subtle background pulse in text+img blocks */
         "bg-pulse": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.88" },
         },
-        /** Медленный сдвиг градиента по горизонтали (плавное пятно, 10s) */
+        /** Slow horizontal gradient shift (smooth spot, 10s) */
         "gradient-shift": {
           "0%": { backgroundPosition: "0% 50%" },
           "100%": { backgroundPosition: "100% 50%" },
@@ -180,7 +186,7 @@ const config: Config = {
         "gradient-shift": "gradient-shift 10s ease-in-out infinite",
       },
       backgroundSize: {
-        /** Для анимации gradient-shift: градиент в 2× шире контейнера */
+        /** For gradient-shift animation: gradient 2× wider than container */
         "gradient-shift": "200% 100%",
       },
     },

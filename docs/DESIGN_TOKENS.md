@@ -6,11 +6,11 @@ Reference for anyone using the NVX design system: tokens live in `tailwind.confi
 
 ## Global styles (globals.css)
 
-**Base styles = default (light) theme.** There is no separate “light theme” block; the base layer defines typography (Proxima Nova), layout (html, body, main), default body colors (#ffffff / #101828), and hero layer visibility (light layers visible when `.dark` is not on `html`).
+**Base styles = default (light) theme.** There is no separate "light theme" block; the base layer defines typography (Proxima Nova), layout (html, body, main), default body colors (#ffffff / #101828), and hero layer visibility (light layers visible when `.dark` is not on `html`).
 
 **Dark theme = sub-styles only.** Applied when `.dark` is added to `html`. It overrides: hero layer visibility, body/section/hero text and buttons, hero image block colors. It does not duplicate typography or layout.
 
-**Hero mesh and gradients:** The variables `--hero-mesh-*` and `--hero-gradient-*` in `.dark` and `.dark [data-hero-02]` are part of the dark sub-styles; do not rename or change their structure when editing globals.css.
+**Hero mesh and gradients:** The variables `--hero-mesh-*` and `--hero-gradient-*` in `.dark`, `.dark [data-hero-02]`, and `.dark [data-hero-03]` are part of the dark sub-styles; do not rename or change their structure when editing globals.css.
 
 ---
 
@@ -34,18 +34,6 @@ Tailwind scale: **1 unit = 0.25rem (4px)**. Use `p-*`, `m-*`, `gap-*`, `space-*`
 | 24 | 96px | 6rem | py-24 (lg) |
 | 32 | 128px | 8rem | py-32 (xl section) |
 
-**Custom spacing:**
-
-| Class | Value | Use for |
-|-------|--------|--------|
-| `col-gap` | 4.375rem (70px) | xl: gap between hero columns |
-| `section-gap` | 3.75rem (60px) | Gap between columns in two-column blocks (e.g. text+img) |
-| `section-py` | 6.25rem (100px) | Vertical padding for content sections (`py-section-py`) |
-| `btn` | 2.875rem (46px) | Button height (`h-btn`) |
-| `btn-min` | 9.375rem (150px) | Primary button min-width (`min-w-btn-min`) |
-
-**Container padding:** `px-4` (mobile) → `sm:px-6` → `lg:px-8`.
-
 **Section / blocks:** Prefer tokens over raw values: `py-section-py`, `gap-section-gap`, `max-w-content-list`, `h-text-img-mobile` / `h-text-img-sm` / `h-text-img` for text+img image column. New repeated values should be added to `tailwind.config.ts` and documented here.
 
 ---
@@ -54,21 +42,21 @@ Tailwind scale: **1 unit = 0.25rem (4px)**. Use `p-*`, `m-*`, `gap-*`, `space-*`
 
 **Font families:** `font-body` (body and UI), `font-display` (headings). Both use Proxima Nova.
 
-See **“Line-height rules for all headings”** and **“Mobile breakpoint rules (font size)”** below for fixed rules; do not override them without updating the design system.
+See **"Line-height rules for all headings"** and **"Mobile breakpoint rules (font size)"** below for fixed rules; do not override them without updating the design system.
 
 | Class | Size | Line height | Use for |
 |-------|------|-------------|--------|
 | `text-xs` + `font-semibold` + `uppercase` | 12px (0.75rem) | default | **Breadcrumb** (e.g. "Navixy Platform · Data & Analytics") |
 | `text-caption` | 12px (0.75rem) | 1.2 | Small metadata, captions (optional alternative to text-xs) |
 | `text-subtitle` | 18px (1.125rem) | 1.2 | **Hero category slot** (icon + label above H1, e.g. "IoT Query") |
-| `text-heading-4xl` | 36px (2.25rem) | 1.3 | **Section headings, 4xl bold** (e.g. «Telematics platform to innovate and scale globally»). Use with `font-bold`. |
+| `text-heading-4xl` | 36px (2.25rem) | 1.3 | **Section headings, 4xl bold**. Use with `font-bold`. |
 | `text-section-title` | 36px (2.25rem) | 1.3 | Alias for `text-heading-4xl` (section headings) |
-| `text-base` | 16px (1rem) | 1.4 | **Длинные описания в контентных секциях** (e.g. text+img: абзацы и пункты списка). Use with `font-body`, `leading-[1.4]`, `text-content-secondary`. |
-
-**Hero category slot (icon + text):** Customizable slot for vibe coders — swap icon and label per product/campaign. Icon **24×24px** (use `h-6 w-6` container, `<Image width={24} height={24} />`). Label **18px**, `font-bold`, `text-subtitle`. Gap between icon and label **8px** (`gap-2`). Gap below to H1 **16px** (`gap-4`).
-| `text-body-lg` | 20px (1.25rem) | 1.4 | Body copy on desktop |
+| `text-base` | 16px (1rem) | 1.4 | **Long descriptions in content sections** (e.g. text+img: paragraphs and list items). Use with `font-body`, `leading-[1.4]`, `text-content-secondary`. |
+| `text-body-lg` | 20px (1.25rem) | 1.4 | Hero description (desktop). Hero blocks: paragraph under H1; mobile text-lg (18px), from sm: text-body-lg (20px). |
 | `text-display-1` | 60px (3.75rem) | 1.1 | Hero H1 |
 | `text-button` | 16px (1rem) | 1.4 | Button label |
+
+**Hero category slot (icon + text):** Icon **24×24px** (use `h-6 w-6` container, `<Image width={24} height={24} />`). Label **18px**, `font-bold`, `text-subtitle`. Gap between icon and label **8px** (`gap-2`). Gap below to H1 **16px** (`gap-4`).
 
 **Hero H1 length rule:** If the heading has more characters than "A Private Lakehouse for telematics data" (41), use the smaller size on desktop: `md:text-5xl` (48px) instead of `md:text-display-1` / `md:text-6xl`. Keeps long titles from overwhelming the layout.
 
@@ -80,6 +68,7 @@ See **“Line-height rules for all headings”** and **“Mobile breakpoint rule
 |--------|-------------|----------------|--------|
 | **Hero H1 (Hero 01)** | 1.1 | (from `text-display-1` token) | Default; do not add custom leading. |
 | **Hero H1 (Hero 02)** | 1.25 on desktop only | `md:leading-tight` | Apply from `md` breakpoint only; mobile uses default. |
+| **Hero H1 (Hero 03)** | 1.25 on desktop only | `md:leading-tight` | Same as Hero 02. |
 | **Other headings** (section titles, etc.) | Prefer 1.2–1.25 | `leading-tight` or default | Keep headings compact; use `leading-normal` (1.5) only for long multi-line headings. |
 
 Do not apply custom line-height to hero H1 on mobile; use the default that comes with `text-4xl` (36px).
@@ -99,7 +88,7 @@ Do not apply custom line-height to hero H1 on mobile; use the default that comes
 
 Do not change hero H1 font size on mobile; 36px is the design system rule for all hero headings on small screens.
 
-**Hero 02 description only:** If the description has **more characters** than *"Query GPS and IoT streams with SQL instead of stitching together APIs, retries, and custom data pipelines."* (82 characters), use **`text-lg` + `font-normal`** on all breakpoints (no `sm:text-body-lg`). Shorter descriptions use `text-lg` on mobile and `sm:text-body-lg` (20px) from `sm` as usual.
+**Hero 02 / Hero 03 description:** If the description has **more characters** than *"Query GPS and IoT streams with SQL instead of stitching together APIs, retries, and custom data pipelines."* (82 characters), use **`text-lg` + `font-normal`** on all breakpoints (no `sm:text-body-lg`). Shorter descriptions use `text-lg` on mobile and `sm:text-body-lg` (20px) from `sm` as usual.
 
 ---
 
@@ -107,22 +96,23 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 
 ### Light theme — surfaces
 
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
+| Token | Tailwind | Hex | Use for |
+|-------|----------|-----|--------|
 | surface-default | `bg-surface-default` | #ffffff | Page and section background (e.g. Hero), cards |
+| variable | `bg-[#F7FCFF]` | #F7FCFF | CTA banner fill (light) |
 
 ### Light theme — content (text hierarchy)
 
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
+| Token | Tailwind | Hex | Use for |
+|-------|----------|-----|--------|
 | content-primary | `text-content-primary` | #101828 | Headings, primary text |
 | content-secondary | `text-content-secondary` | #1e2939 | Descriptions, secondary text (light theme) |
 | content-muted | `text-content-muted` | #62748e | Breadcrumb, hints, tertiary text |
 
 ### Light theme — buttons
 
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
+| Token | Tailwind | Hex | Use for |
+|-------|----------|-----|--------|
 | button-primary | `bg-button-primary` | #0084d1 | Primary (filled) button background |
 | button-primary-foreground | `text-button-primary-foreground` | #ffffff | Text on primary button |
 | button-secondary | `text-button-secondary` | #0084d1 | Secondary (ghost) button text |
@@ -131,30 +121,39 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 
 Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172A).
 
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
+| Token | Tailwind | Hex | Use for |
+|-------|----------|-----|--------|
 | surface-dark-primary | `dark:bg-surface-dark-primary` | #0F172A | Main page/section background |
-| surface-dark-secondary | `dark:bg-surface-dark-secondary` | #0E141D | Dark blocks (cards, bars) |
-| surface-dark-bright | `dark:bg-surface-dark-bright` | #273347 | Cards, image blocks |
-| surface-dark-input | `dark:bg-surface-dark-input` | #1B2533 | Form inputs |
+| variable | `dark:bg-[#131F3B]` | #131F3B | CTA banner fill / gradient start (dark) |
 
 ### Dark theme — text
 
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
+| Token | Tailwind | Hex | Use for |
+|-------|----------|-----|--------|
 | text-dark-primary | `dark:text-text-dark-primary` | #E0E0E0 | Headings, primary text |
 | text-dark-secondary | `dark:text-text-dark-secondary` | #e5e7eb (gray-200) | Body text, descriptions in dark theme |
-| text-dark-placeholder | `dark:text-text-dark-placeholder` | #9DA5B3 | Input placeholder |
 | text-dark-tertiary | `dark:text-text-dark-tertiary` | #CCCCCC | Tertiary text |
 
-### Dark theme — accent and borders
-
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
-| accent-dark | `dark:bg-accent-dark`, `dark:text-accent-dark` | #3498DB | Primary button, links |
-| border-dark | `dark:border-border-dark` | #40546D | Borders |
-
 **Brand / accent (light):** `brand-500` / `accent-500` (#0084d1) match button-primary. Full scales in `tailwind.config.ts`.
+
+---
+
+## Shadows
+
+All shadows use a light blue tint (#00A6F4). Use `shadow-*` classes from `tailwind.config.ts`.
+
+| Class | Use for |
+|-------|--------|
+| `shadow-2xs` | Very subtle (e.g. CTA banner) |
+| `shadow-xs` | Light card shadow |
+| `shadow-sm` / `shadow` / `shadow-md` / `shadow-lg` / `shadow-xl` / `shadow-2xl` | Standard elevation scale |
+| `shadow-glow-blue-card` | Link cards in dark theme (hover only): `dark:hover:shadow-glow-blue-card` |
+
+---
+
+## Buttons (mobile)
+
+**Mobile rule:** All buttons full width, stacked vertically; primary always on top. Container: `flex flex-col gap-5 w-full md:flex-row md:gap-7`. Buttons: `w-full md:w-auto`; primary also `md:min-w-btn-min`. Single button: `w-full md:w-auto md:min-w-btn-min`.
 
 ---
 
@@ -192,14 +191,34 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 
 ## Hero background
 
-Hero background is implemented in the component (mesh + gradients). **Base (light):** inline styles in HeroBlock. **Dark sub-styles:** CSS variables `--hero-mesh-color`, `--hero-gradient-horizontal`, `--hero-gradient-overlay` in `.dark` (and `.dark [data-hero-02]` for Hero 02). Do not rename or remove these variables in `globals.css`.
+Hero background is implemented in the component (mesh + gradients). **Base (light):** inline styles in HeroBlock / HeroBlock02 / HeroBlock03. **Dark sub-styles:** CSS variables `--hero-mesh-color`, `--hero-gradient-horizontal`, `--hero-gradient-overlay` in `.dark`, `.dark [data-hero-02]` (Hero 02), and `.dark [data-hero-03]` (Hero 03). Do not rename or remove these variables in `globals.css`.
 
 | Layer | Base (light) | Dark (sub-styles) |
 |-------|--------------|-------------------|
-| Mesh | rgba(223,242,254,0.52), 40×40px, fade mask | `--hero-mesh-color`, 40×40px |
-| Horizontal gradient | mix-blend-multiply, see HeroBlock | `--hero-gradient-horizontal` |
+| Mesh | rgba(223,242,254,0.52) or variant, **44×44px**, fade mask | `--hero-mesh-color`, **44×44px** |
+| Horizontal gradient | mix-blend-multiply, see Hero blocks | `--hero-gradient-horizontal` |
 | Overlay | Top blue tint, bottom fade to white | `--hero-gradient-overlay` (blue tint at top, fade to surface-dark-primary) |
 
 Visibility of light vs dark layers is controlled by `data-hero-bg-light` and `data-hero-bg-dark` in `globals.css` (light set visible by default; dark set visible when `.dark` is on `html`).
 
 **Hero 02 gradient variant:** Section has `data-hero-02`. In dark theme, `.dark [data-hero-02]` overrides only the gradient variables (different blue hue/opacity); mesh and structure are shared with Hero 01. Light theme: Hero 02 uses its own gradient in the component.
+
+**Hero 03 gradient variant:** Section has `data-hero-03`. In dark theme, `.dark [data-hero-03]` overrides gradient variables with #2b7fff tint (stronger blue at top). Light theme: top overlay uses `rgba(43, 127, 255, 0.4)` at top. Hero 03 chart column has transparent background in dark (no fill on image block).
+
+---
+
+## CTA block
+
+**Section:** `id="cta"`, `py-24 md:py-section-py lg:py-section-py`, `max-w-7xl` container.
+
+**Background:** Light: solid **#F7FCFF** (variable). Dark: gradient `from-[#131F3B] via-surface-dark-primary to-surface-dark-primary`. No border; **shadow-xs** on wrapper.
+
+**Content:** Mesh + squares (CtaMeshSvg), two blurred circles (#00A6F4, 300×300px, blur-[150px]) at bottom left and right. Heading, description, primary button, optional fine print. Use `h-btn`, `rounded-btn`, `bg-brand-500` / `dark:bg-accent-dark`, `min-w-btn-min` on md+.
+
+---
+
+## Features 03 (cards with chips)
+
+**Layout:** 3 cards, grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`, gap-5. Card: `rounded-lg`, `border border-slate-100` / `dark:border-slate-800`, `bg-white` / `dark:bg-[#131F3B]`, `p-6`, `shadow-md`; link cards use `hover:shadow-xl` and `dark:hover:shadow-glow-blue-card`.
+
+**Chip ("Use case"):** `inline-flex items-center gap-1.5 rounded-full border border-brand-500 bg-brand-500/10 px-4 py-2` (light); `dark:border-accent-dark dark:bg-accent-dark/15`. Icon (e.g. ActivityZoneIcon) `h-4 w-4 text-brand-500 dark:text-accent-dark`. Label `text-xs font-normal text-brand-500 dark:text-accent-dark`. Light theme chip background is 10% opacity for a more transparent look.

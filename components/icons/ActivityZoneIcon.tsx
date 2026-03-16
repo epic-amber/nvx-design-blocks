@@ -1,5 +1,5 @@
 /**
- * Activity zone icon — for "Use case" chip in features 03 (Figma 8053:40189).
+ * Activity zone icon — for "Use case" chip in features 03.
  * Use currentColor so parent can set color (e.g. text-brand-500 / dark:text-accent-dark).
  */
 export function ActivityZoneIcon({ className }: { className?: string }) {
