@@ -17,23 +17,16 @@ const SPACING = [
   { class: "32", value: "128px", rem: "8rem", use: "py-32 (xl section)" },
 ] as const;
 
-const SPACING_CUSTOM = [
-  { class: "col-gap", value: "4.375rem (70px)", use: "xl: gap between hero columns" },
-  { class: "btn", value: "2.875rem (46px)", use: "Button height (h-btn)" },
-  { class: "btn-min", value: "9.375rem (150px)", use: "Primary button min-width (min-w-btn-min)" },
-] as const;
-
 /* DESIGN_TOKENS.md — Light theme surfaces (blocks only) */
 const LIGHT_SURFACES = [
   { token: "surface-default", class: "bg-surface-default", hex: "#ffffff", use: "Page and section background (e.g. Hero), cards" },
+  { token: "variable", class: "bg-[#F7FCFF]", hex: "#F7FCFF", use: "CTA banner fill (light)" },
 ] as const;
 
-/* DESIGN_TOKENS.md — Dark theme surfaces */
+/* DESIGN_TOKENS.md — Dark theme surfaces (blocks only) */
 const DARK_SURFACES = [
   { token: "surface-dark-primary", class: "dark:bg-surface-dark-primary", hex: "#0F172A", use: "Main page/section background" },
-  { token: "surface-dark-secondary", class: "dark:bg-surface-dark-secondary", hex: "#0E141D", use: "Dark blocks (cards, bars)" },
-  { token: "surface-dark-bright", class: "dark:bg-surface-dark-bright", hex: "#273347", use: "Cards, image blocks" },
-  { token: "surface-dark-input", class: "dark:bg-surface-dark-input", hex: "#1B2533", use: "Form inputs" },
+  { token: "variable", class: "dark:bg-[#131F3B]", hex: "#131F3B", use: "CTA banner fill / gradient start (dark)" },
 ] as const;
 
 /* DESIGN_TOKENS.md — Light theme content */
@@ -54,14 +47,7 @@ const LIGHT_BUTTONS = [
 const DARK_CONTENT = [
   { token: "text-dark-primary", class: "dark:text-text-dark-primary", hex: "#E0E0E0", use: "Headings, primary text" },
   { token: "text-dark-secondary", class: "dark:text-text-dark-secondary", hex: "#e5e7eb", use: "Body text, descriptions in dark theme (gray-200)" },
-  { token: "text-dark-placeholder", class: "dark:text-text-dark-placeholder", hex: "#9DA5B3", use: "Input placeholder" },
   { token: "text-dark-tertiary", class: "dark:text-text-dark-tertiary", hex: "#CCCCCC", use: "Tertiary text" },
-] as const;
-
-/* DESIGN_TOKENS.md — Dark theme accent and borders */
-const DARK_ACCENT_BORDERS = [
-  { token: "accent-dark", class: "dark:bg-accent-dark, dark:text-accent-dark", hex: "#3498DB", use: "Primary button, links" },
-  { token: "border-dark", class: "dark:border-border-dark", hex: "#40546D", use: "Borders" },
 ] as const;
 
 export default function DesignSystemPage() {
@@ -91,10 +77,10 @@ export default function DesignSystemPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {LIGHT_SURFACES.map(({ token, class: cls, hex, use }) => (
               <div key={token} className="rounded-lg border border-neutral-200 dark:border-border-dark overflow-hidden">
-                <div className={`h-24 ${cls} border-b border-neutral-200 dark:border-border-dark`} />
-                <div className="bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
+                <div className={`h-24 w-full min-w-0 ${cls} border-b border-neutral-200 dark:border-border-dark`} />
+                <div className="w-full rounded-b-lg bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
                   <p className="font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">{cls}</p>
+                  <p className="mt-1 text-xs text-content-muted dark:text-text-dark-secondary"><span className="font-semibold">Tailwind:</span> <code className="font-mono">{cls}</code></p>
                   <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
                   <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">{use}</p>
                 </div>
@@ -111,10 +97,10 @@ export default function DesignSystemPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {DARK_SURFACES.map(({ token, class: cls, hex, use }) => (
               <div key={token} className="rounded-lg border border-neutral-200 dark:border-border-dark overflow-hidden">
-                <div className={`h-24 ${cls} border-b border-neutral-200 dark:border-border-dark`} />
-                <div className="bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
+                <div className={`h-24 w-full min-w-0 ${cls} border-b border-neutral-200 dark:border-border-dark`} />
+                <div className="w-full rounded-b-lg bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
                   <p className="font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">{cls}</p>
+                  <p className="mt-1 text-xs text-content-muted dark:text-text-dark-secondary"><span className="font-semibold">Tailwind:</span> <code className="font-mono">{cls}</code></p>
                   <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
                   <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">{use}</p>
                 </div>
@@ -133,7 +119,8 @@ export default function DesignSystemPage() {
               <div key={token} className="rounded-lg border border-neutral-200 bg-white px-6 py-4 dark:border-border-dark dark:bg-surface-dark-bright">
                 <p className={`font-body text-lg ${cls}`}>Sample text</p>
                 <p className="mt-2 font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">{token}</p>
-                <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
+                <p className="mt-1 text-xs text-content-muted dark:text-text-dark-secondary"><span className="font-semibold">Tailwind:</span> <code className="font-mono">{cls}</code></p>
+                <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
                 <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">{use}</p>
               </div>
             ))}
@@ -151,7 +138,8 @@ export default function DesignSystemPage() {
                 <div key={token} className="rounded-lg border border-border-dark bg-surface-dark-bright px-6 py-4">
                   <p className={`font-body text-lg ${cls}`}>Sample text</p>
                   <p className="mt-2 font-mono text-xs font-semibold text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-text-dark-secondary">{hex}</p>
+                  <p className="mt-1 text-xs text-text-dark-secondary"><span className="font-semibold">Tailwind:</span> <code className="font-mono">{cls}</code></p>
+                  <p className="mt-1 font-mono text-xs text-text-dark-secondary">{hex}</p>
                   <p className="mt-1 text-xs text-text-dark-secondary">{use}</p>
                 </div>
               ))}
@@ -167,7 +155,7 @@ export default function DesignSystemPage() {
           <div className="grid gap-4 sm:grid-cols-3">
             {LIGHT_BUTTONS.map(({ token, class: cls, hex, use }) => (
               <div key={token} className="rounded-lg border border-neutral-200 dark:border-border-dark overflow-hidden">
-                <div className={`h-14 flex items-center justify-center border-b border-neutral-200 dark:border-border-dark ${token.includes("foreground") ? "bg-button-primary" : token.includes("secondary") ? "bg-surface-subtle dark:bg-surface-dark-bright" : cls}`}>
+                <div className={`h-14 w-full min-w-0 flex items-center justify-center border-b border-neutral-200 dark:border-border-dark ${token.includes("foreground") ? "bg-button-primary" : token.includes("secondary") ? "bg-surface-subtle dark:bg-surface-dark-bright" : cls}`}>
                   {token.includes("foreground") ? (
                     <span className="font-body text-sm font-medium text-button-primary-foreground">Aa</span>
                   ) : token.includes("secondary") ? (
@@ -176,35 +164,9 @@ export default function DesignSystemPage() {
                     <span className="font-body text-sm font-medium text-button-primary-foreground">Primary</span>
                   )}
                 </div>
-                <div className="bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
+                <div className="w-full rounded-b-lg bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
                   <p className="font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">{cls}</p>
-                  <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
-                  <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">{use}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Colors — Dark theme accent and borders (DESIGN_TOKENS.md) */}
-        <section className="mb-20" aria-labelledby="colors-accent-dark">
-          <h2 id="colors-accent-dark" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
-            Colors · Dark theme — accent and borders
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {DARK_ACCENT_BORDERS.map(({ token, class: cls, hex, use }) => (
-              <div key={token} className="rounded-lg border border-neutral-200 dark:border-border-dark overflow-hidden">
-                <div className={`h-14 flex items-center justify-center border-b border-neutral-200 dark:border-border-dark ${token === "accent-dark" ? "bg-accent-dark" : "border-2 border-border-dark"}`}>
-                  {token === "accent-dark" ? (
-                    <span className="font-body text-sm font-medium text-white">Aa</span>
-                  ) : (
-                    <span className="font-body text-xs text-content-muted dark:text-text-dark-secondary">Border sample</span>
-                  )}
-                </div>
-                <div className="bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
-                  <p className="font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">{cls}</p>
+                  <p className="mt-1 text-xs text-content-muted dark:text-text-dark-secondary"><span className="font-semibold">Tailwind:</span> <code className="font-mono">{cls}</code></p>
                   <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">{hex}</p>
                   <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">{use}</p>
                 </div>
@@ -222,6 +184,39 @@ export default function DesignSystemPage() {
             <strong className="text-content-primary dark:text-text-dark-primary">brand-500</strong> / <strong className="text-content-primary dark:text-text-dark-primary">accent-500</strong> (#0084d1) match button-primary. Full scales in <code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright font-mono text-sm">tailwind.config.ts</code>.
           </p>
           <div className="mt-4 h-14 w-14 rounded-lg bg-brand-500" title="brand-500 #0084d1" />
+        </section>
+
+        {/* Buttons — right after Brand */}
+        <section className="mb-20" aria-labelledby="buttons">
+          <h2 id="buttons" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
+            Buttons
+          </h2>
+          <div className="flex flex-wrap items-center gap-6">
+            <a
+              href="#"
+              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark"
+            >
+              Primary
+            </a>
+            <a
+              href="#"
+              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn border-[1.5px] border-brand-500 bg-transparent px-6 py-3.5 font-body text-button font-semibold text-brand-500 transition-opacity hover:bg-brand-500/10 hover:opacity-90 dark:border-accent-dark dark:text-accent-dark dark:hover:bg-accent-dark/10"
+            >
+              Secondary
+            </a>
+            <a
+              href="#"
+              className="flex h-btn items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark"
+            >
+              Link button
+            </a>
+          </div>
+          <p className="mt-4 font-mono text-xs text-content-muted dark:text-text-dark-secondary">
+            Primary: filled. Secondary: border 1.5px. Link button: text only, no border or background (Hero: second CTA). h-btn (46px) · min-w-btn-min (150px) · rounded-btn (6px).
+          </p>
+          <p className="mt-2 text-xs text-content-secondary dark:text-text-dark-secondary">
+            On mobile: buttons full width (w-full), stacked, primary on top. From md: row, auto width.
+          </p>
         </section>
 
         {/* Spacing (DESIGN_TOKENS.md) */}
@@ -245,17 +240,6 @@ export default function DesignSystemPage() {
               </div>
             ))}
           </div>
-          <p className="mt-6 font-body text-sm font-semibold text-content-primary dark:text-text-dark-primary">Custom spacing</p>
-          <div className="mt-2 space-y-2">
-            {SPACING_CUSTOM.map(({ class: c, value, use }) => (
-              <div key={c} className="flex flex-wrap items-center gap-4 font-mono text-sm">
-                <span className="text-content-primary dark:text-text-dark-primary">{c}</span>
-                <span className="text-content-muted dark:text-text-dark-secondary">{value}</span>
-                <span className="text-content-secondary dark:text-text-dark-secondary font-sans font-normal text-xs">{use}</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-content-muted dark:text-text-dark-secondary">Container padding: px-4 (mobile) → sm:px-6 → lg:px-8.</p>
         </section>
 
         {/* Typography (DESIGN_TOKENS.md) */}
@@ -268,44 +252,49 @@ export default function DesignSystemPage() {
           </p>
           <div className="space-y-6">
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-xs font-semibold uppercase text-content-primary dark:text-text-dark-primary">Breadcrumb</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-xs + font-semibold + uppercase · 12px (0.75rem) · default</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Breadcrumb (e.g. &quot;Navixy Platform · Data &amp; Analytics&quot;)</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">H1</p>
+              <p className="mt-1 font-display text-display-1 font-bold text-content-primary dark:text-text-dark-primary">Hero H1</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-display-1 + font-bold · 60px (3.75rem) · 1.1</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">On mobile: 36px</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-caption text-content-primary dark:text-text-dark-primary">Caption</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-caption · 12px (0.75rem) · 1.2</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Small metadata, captions</p>
-            </div>
-            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary">Hero category slot</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-subtitle · 18px (1.125rem) · 1.2</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Hero category slot (icon + label above H1, e.g. &quot;IoT Query&quot;)</p>
-            </div>
-            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-display text-heading-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">Section heading (4xl bold)</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">H2</p>
+              <p className="mt-1 font-display text-heading-4xl font-bold leading-[1.3] text-content-primary dark:text-text-dark-primary">Section heading (4xl bold)</p>
               <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-heading-4xl + font-bold · 36px (2.25rem) · 1.3</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Заголовки секций (e.g. &quot;Telematics platform to innovate and scale globally&quot;)</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">On mobile: 30px. Section headings.</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-base leading-[1.4] text-content-secondary dark:text-text-dark-secondary">Длинные описания в секциях (text+img): абзацы и пункты списка.</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-base + leading-[1.4] · 16px (1rem) · 1.4</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Используется при большом объёме текста (e.g. text+img 01, 02)</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">H3 / category</p>
+              <p className="mt-1 font-body text-subtitle font-bold text-content-primary dark:text-text-dark-primary">Hero category slot</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-subtitle · 18px (1.125rem) · 1.2</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Label above H1 (e.g. &quot;IoT Query&quot;)</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-body-lg text-content-secondary dark:text-text-dark-secondary">Body copy on desktop</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-body-lg · 20px (1.25rem) · 1.4</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Body copy on desktop</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">Body</p>
+              <p className="mt-1 font-body text-body-lg font-normal text-content-secondary dark:text-text-dark-secondary">Hero description (desktop)</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-body-lg + font-normal · 20px (1.25rem) · 1.4</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">On mobile: 18px. Hero blocks: paragraph under H1; from sm: text-body-lg (20px).</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-display text-display-1 text-content-primary dark:text-text-dark-primary">Hero H1</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-display-1 · 60px (3.75rem) · 1.1</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Hero H1</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">Body</p>
+              <p className="mt-1 font-body text-base font-normal leading-[1.4] text-content-secondary dark:text-text-dark-secondary">Long descriptions in sections (text+img): paragraphs and list items.</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-base + font-normal · 16px (1rem) · 1.4</p>
             </div>
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
-              <p className="font-body text-button text-content-primary dark:text-text-dark-primary">Button label</p>
-              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-button · 16px (1rem) · 1.4</p>
-              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Button label</p>
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">Button</p>
+              <p className="mt-1 font-body text-button font-semibold text-content-primary dark:text-text-dark-primary">Button label</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-button + font-semibold · 16px (1rem) · 1.4</p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">Breadcrumb</p>
+              <p className="mt-1 font-body text-xs font-semibold uppercase text-content-primary dark:text-text-dark-primary">Breadcrumb</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-xs + font-semibold + uppercase · 12px (0.75rem)</p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 dark:border-border-dark p-4">
+              <p className="font-mono text-xs font-semibold text-content-muted dark:text-text-dark-secondary">Caption</p>
+              <p className="mt-1 font-body text-caption font-normal text-content-primary dark:text-text-dark-primary">Caption</p>
+              <p className="mt-1 font-mono text-xs text-content-muted dark:text-text-dark-secondary">text-caption + font-normal · 12px (0.75rem) · 1.2</p>
+              <p className="mt-1 text-xs text-content-secondary dark:text-text-dark-secondary">Small metadata, captions</p>
             </div>
           </div>
         </section>
@@ -316,7 +305,7 @@ export default function DesignSystemPage() {
             Hero background · Mesh
           </h2>
           <p className="font-body text-content-secondary dark:text-text-dark-secondary mb-6">
-            Сетка линий поверх hero. Размер ячейки во всех hero: <strong className="text-content-primary dark:text-text-dark-primary font-mono">44×44px</strong> (<code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">backgroundSize: &quot;44px 44px&quot;</code>). Light: inline в компоненте; dark: <code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">--hero-mesh-color</code> в <code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">.dark</code>.
+            Line grid over hero. Cell size in all heroes: <strong className="text-content-primary dark:text-text-dark-primary font-mono">44×44px</strong> (<code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">backgroundSize: &quot;44px 44px&quot;</code>). Light: inline in component; dark: <code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">--hero-mesh-color</code> in <code className="rounded bg-surface-subtle px-1 dark:bg-surface-dark-bright">.dark</code>.
           </p>
           <div className="flex flex-wrap gap-8">
             <div className="rounded-lg border border-neutral-200 dark:border-border-dark overflow-hidden">
@@ -330,7 +319,7 @@ export default function DesignSystemPage() {
                   backgroundSize: "44px 44px",
                 }}
               />
-              <div className="bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
+              <div className="rounded-b-lg bg-surface-subtle px-4 py-3 dark:bg-surface-dark-bright">
                 <p className="font-mono text-xs font-semibold text-content-primary dark:text-text-dark-primary">Light (Hero 01)</p>
                 <p className="font-mono text-xs text-content-muted dark:text-text-dark-secondary">rgba(223,242,254,0.52) · 44×44px</p>
               </div>
@@ -346,38 +335,14 @@ export default function DesignSystemPage() {
                   backgroundSize: "44px 44px",
                 }}
               />
-              <div className="bg-surface-dark-bright px-4 py-3">
+              <div className="rounded-b-lg bg-surface-dark-bright px-4 py-3">
                 <p className="font-mono text-xs font-semibold text-text-dark-primary">Dark</p>
                 <p className="font-mono text-xs text-text-dark-secondary">--hero-mesh-color · 44×44px</p>
               </div>
             </div>
           </div>
           <p className="mt-4 text-xs text-content-muted dark:text-text-dark-secondary">
-            В компонентах hero также используются горизонтальный градиент и оверлей; см. DESIGN_TOKENS.md «Hero background».
-          </p>
-        </section>
-
-        {/* Buttons */}
-        <section className="mb-20" aria-labelledby="buttons">
-          <h2 id="buttons" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
-            Buttons
-          </h2>
-          <div className="flex flex-wrap items-center gap-6">
-            <a
-              href="#"
-              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark"
-            >
-              Primary
-            </a>
-            <a
-              href="#"
-              className="flex h-btn items-center justify-center rounded-btn px-6 py-3.5 font-body text-button font-semibold text-brand-500 transition-opacity hover:opacity-90 dark:text-accent-dark"
-            >
-              Secondary
-            </a>
-          </div>
-          <p className="mt-4 font-mono text-xs text-content-muted dark:text-text-dark-secondary">
-            h-btn (46px) · min-w-btn-min (150px) · rounded-btn (6px)
+            Hero components also use horizontal gradient and overlay; see DESIGN_TOKENS.md “Hero background”.
           </p>
         </section>
 
@@ -448,29 +413,6 @@ export default function DesignSystemPage() {
           </div>
         </section>
 
-        {/* Buttons (DESIGN_TOKENS.md: h-btn, rounded-btn, min-w-btn-min) */}
-        <section className="mb-8" aria-labelledby="buttons">
-          <h2 id="buttons" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
-            Buttons
-          </h2>
-          <div className="flex flex-wrap items-center gap-6">
-            <a
-              href="#"
-              className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark"
-            >
-              Primary
-            </a>
-            <a
-              href="#"
-              className="flex h-btn items-center justify-center rounded-btn px-6 py-3.5 font-body text-button font-semibold text-brand-500 transition-opacity hover:opacity-90 dark:text-accent-dark"
-            >
-              Secondary
-            </a>
-          </div>
-          <p className="mt-4 font-mono text-xs text-content-muted dark:text-text-dark-secondary">
-            h-btn (2.875rem / 46px) · min-w-btn-min (9.375rem / 150px) · rounded-btn (6px)
-          </p>
-        </section>
       </div>
     </main>
   );

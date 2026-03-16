@@ -37,7 +37,7 @@ const DARK_SQ_COLORS = ["#132559", "#324783", "#081A39"];
 /** Color index per square (0,1,2) — varied distribution. */
 const SQUARE_COLOR_INDEX = [0, 2, 1, 0, 2, 1, 2, 0, 1, 2];
 
-/** Animation: 2–3 квадрата с начала (delay 0), остальные — рандомно: часть мгновенно (0.3s), остальные с задержкой (0.55s); появление мгновенное (pop). */
+/** Animation: first 2–3 squares (delay 0), rest random: some instant (0.3s), others delayed (0.55s); pop-in appearance. */
 const SQUARE_APPEAR_DELAYS_S = [0, 0.3, 0.3, 0.55, 0, 0.3, 0.3, 0.55, 0, 0.55];
 
 /** Aspect ratio of the design area (1100×439) so mesh cells and squares stay exactly square. */
@@ -80,7 +80,7 @@ export function CtaMeshSvg({ className }: { className?: string }) {
               {SQUARES.map(([x, y], i) => (
                 <div
                   key={i}
-                  className={`absolute cta-mesh-sq-${i} dark:mix-blend-multiply`}
+                  className={`absolute cta-mesh-sq-${i}`}
                   style={{
                     left: `${(x / VIEW_W) * 100}%`,
                     top: `${((y - 1) / VIEW_H) * 100}%`,

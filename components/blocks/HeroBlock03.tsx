@@ -67,7 +67,7 @@ export function HeroBlock03() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0) 81.98%, rgb(255,255,255) 96.34%), linear-gradient(180deg, rgba(255,255,255,0) 31.06%, rgba(219,234,254,0) 96.76%), linear-gradient(180deg, rgb(184,230,254) 0%, rgba(255,255,255,0) 27.5%)",
+                "linear-gradient(180deg, rgba(255,255,255,0) 81.98%, rgb(255,255,255) 96.34%), linear-gradient(180deg, rgba(255,255,255,0) 31.06%, rgba(219,234,254,0) 96.76%), linear-gradient(180deg, rgba(43, 127, 255, 0.4) 0%, rgba(255,255,255,0) 27.5%)",
             }}
           />
         </div>
@@ -164,20 +164,20 @@ export function HeroBlock03() {
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-5 md:gap-7"
+              className="flex w-full flex-col gap-5 md:flex-row md:gap-7"
               variants={fadeUp}
             >
               <a
                 href="#product"
                 data-hero-btn-primary
-                className="flex h-btn min-w-btn-min items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark"
+                className="flex h-btn w-full items-center justify-center rounded-btn bg-brand-500 px-6 py-3.5 font-body text-button font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark md:min-w-btn-min md:w-auto"
               >
                 Action button
               </a>
               <a
                 href="#pricing"
                 data-hero-btn-link
-                className="flex h-btn items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark"
+                className="flex h-btn w-full items-center justify-center py-3.5 font-body text-button font-semibold text-brand-500 no-underline transition-opacity hover:opacity-80 dark:text-accent-dark md:w-auto"
               >
                 Link button
               </a>

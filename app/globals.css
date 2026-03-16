@@ -3,18 +3,16 @@
 @tailwind utilities;
 
 /*
- * NVX Design System — Global styles
- * ----------------------------------
- * Base styles = default (light) theme. Dark theme is applied by adding .dark on html;
- * it only adds sub-styles (color overrides), no separate light theme block.
- * Hero mesh/gradient variables (--hero-mesh-*, --hero-gradient-*) are not modified here.
+ * NVX Design System — Global styles (app/globals.css)
+ * --------------------------------------------------
+ * • Base = light theme. Dark = overrides only when .dark is on <html>.
+ * • Design tokens (colors, spacing) live in tailwind.config.ts; this file handles
+ *   fonts, base layout, hero layer visibility, and dark theme overrides.
  */
 
-/* ==========================================================================
-   Base styles (light theme — default)
-   ========================================================================== */
-
-/* Typography: Proxima Nova. Add .woff2 to public/fonts/ for full support. */
+/* --------------------------------------------------------------------------
+   Typography — Proxima Nova (400, 600, 700). Add .woff2 to public/fonts/ if needed.
+   -------------------------------------------------------------------------- */
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");
@@ -37,24 +35,29 @@
   font-display: swap;
 }
 
+/* --------------------------------------------------------------------------
+   Base layout (light theme default)
+   -------------------------------------------------------------------------- */
 @layer base {
   html {
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
   }
+  /* Page bg #fff, text #101828. Min height so footer can stick to bottom. */
   body {
     background-color: #ffffff;
     color: #101828;
     overflow-x: hidden;
     min-height: 100vh;
   }
+  /* Safe area for notched devices. */
   main {
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
   }
 }
 
-/* Hero background layers: light set visible by default; dark set hidden until .dark. */
+/* Hero: which background set is visible. Light = data-hero-bg-light, dark = data-hero-bg-dark. */
 html:not(.dark) [data-hero-bg-light] {
   opacity: 1 !important;
 }
@@ -73,9 +76,9 @@ html:not(.dark) [data-hero-bg-dark] {
   opacity: 1 !important;
 }
 
-/* Hero background tokens: do not modify --hero-mesh-* / --hero-gradient-* names or structure. */
+/* --- Hero background tokens (default + Hero 02/03 overrides below). Do not rename variables. --- */
 .dark {
-  --hero-mesh-color: rgba(165, 178, 230, 0.12); /* ~20% less visible (was 0.15) */
+  --hero-mesh-color: rgba(165, 178, 230, 0.12);
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
     rgba(13, 17, 26, 0) 0%,
@@ -96,6 +99,7 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
+/* Hero 02 variant: slightly different blue in gradient. */
 .dark [data-hero-02] {
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
@@ -117,11 +121,12 @@ html:not(.dark) [data-hero-bg-dark] {
     );
 }
 
+/* Hero 03 variant: #2b7fff tint, stronger at top. */
 .dark [data-hero-03] {
   --hero-gradient-horizontal: linear-gradient(
     89.998deg,
     rgba(13, 17, 26, 0) 0%,
-    rgba(0, 132, 209, 0.1) 50%,
+    rgba(43, 127, 255, 0.18) 50%,
     rgba(13, 17, 26, 0) 100%
   );
   --hero-gradient-overlay: linear-gradient(
@@ -132,68 +137,67 @@ html:not(.dark) [data-hero-bg-dark] {
     ),
     linear-gradient(
       180deg,
-      rgba(0, 132, 209, 0.28) 0%,
-      rgba(0, 132, 209, 0.14) 30%,
+      rgba(43, 127, 255, 0.42) 0%,
+      rgba(43, 127, 255, 0.2) 30%,
       rgba(16, 24, 40, 0) 55%
     );
 }
 
-/* Dark: body and page surfaces; body text from Tailwind token dark:text-text-dark-secondary (tailwind.config.ts) */
+/* --- Page and section background in dark --- */
 .dark body {
   background-color: #101828 !important;
 }
-
 .dark [data-hero-section] {
   background-color: #101828 !important;
 }
 
-/* Dark: hero text hierarchy */
+/* --- Hero text: breadcrumb/description gray-300; heading/label light gray --- */
 .dark [data-hero-breadcrumb],
 .dark [data-hero-description] {
-  color: #d1d5db !important; /* Tailwind gray-300 */
+  color: #d1d5db !important;
 }
-
 .dark [data-hero-heading],
 .dark [data-hero-label] {
   color: #e0e0e0 !important;
 }
 
-/* Dark: hero buttons */
+/* --- Hero primary CTA and link button colors --- */
 .dark [data-hero-btn-primary] {
   background-color: #3498db !important;
   color: #ffffff !important;
 }
-
 .dark [data-hero-btn-link] {
   color: #3498db !important;
 }
 
-/* Dark: hero image block, header */
+/* --- Hero image column: default blue-gray; Hero 03 chart column stays transparent --- */
 .dark [data-hero-image-block] {
-  background-color: #1e2939 !important; /* neutral blue-gray, no green */
+  background-color: #1e2939 !important;
 }
-
-/* Hero 03: chart column has no background (transparent) */
 .dark [data-hero-03] [data-hero-image-block] {
   background-color: transparent !important;
 }
 
+/* Nav bar / header background. */
 .dark header {
-  background-color: #0d1117 !important; /* neutral dark */
+  background-color: #0d1117 !important;
 }
 
 /* ==========================================================================
-   Hero 03 chart animations (from navixy-system-web) — Mileage Distribution & By Weeks
+   Hero 03 — Mileage chart (donut + stacked bars). Used in HeroBlock03.
    ========================================================================== */
+
+/* Chart accent and tooltip background. */
 :root {
   --mileage-primary: #3988da;
   --mileage-primary-black: #222222;
 }
 
+/* Card container: near-white bg, 22px radius, blue-tinted shadow, entrance animation. */
 .mileage-card {
   background: rgba(255, 255, 255, 0.98);
   border-radius: 22px;
-  box-shadow: 0 2px 4px rgba(57, 136, 218, 0.06), 0 6px 16px rgba(57, 136, 218, 0.1), 0 12px 32px rgba(57, 136, 218, 0.12);
+  box-shadow: 0 2px 4px rgba(0, 166, 244, 0.08), 0 6px 16px rgba(0, 166, 244, 0.12), 0 12px 32px rgba(0, 166, 244, 0.14);
   overflow: hidden;
   opacity: 0;
   transform: translateY(28px) scale(0.96);
@@ -202,6 +206,8 @@ html:not(.dark) [data-hero-bg-dark] {
 @keyframes mileage-card-in {
   to { opacity: 1; transform: none; }
 }
+
+/* Top accent strip: gradient bar with shimmer. */
 .mileage-accent-bar {
   height: 4px;
   background: linear-gradient(90deg, var(--mileage-primary) 0%, #72DCFB 33%, #B28FE8 66%, var(--mileage-primary) 100%);
@@ -212,6 +218,8 @@ html:not(.dark) [data-hero-bg-dark] {
   0% { background-position: 100% 0; }
   100% { background-position: -100% 0; }
 }
+
+/* Header row and divider (staggered fade-in). */
 .mileage-header { padding: 22px 28px 0; display: flex; align-items: flex-start; justify-content: space-between; }
 .mileage-header { opacity: 0; animation: mileage-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards; }
 @keyframes mileage-fade-up {
@@ -224,12 +232,15 @@ html:not(.dark) [data-hero-bg-dark] {
   animation: mileage-grow-x 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
 }
 @keyframes mileage-grow-x { to { transform: scaleX(1); } }
+
+/* Body: chart (200×200) + legend side by side. */
 .mileage-body { display: flex; align-items: center; padding: 20px 28px 18px; gap: 24px; }
 .mileage-chart-wrap { position: relative; flex-shrink: 0; width: 200px; height: 200px; }
 .mileage-donut-track { fill: none; stroke: #F3F4F6; stroke-width: 32; }
 .mileage-seg { fill: none; stroke-width: 32; stroke-linecap: butt; transition: stroke-width 0.3s ease, opacity 0.3s ease; }
 .mileage-seg:hover { stroke-width: 37; cursor: pointer; }
 .mileage-gap-line { stroke: white; stroke-width: 4.5; }
+/* Animated ring around donut. */
 .mileage-pulse-ring {
   fill: none; stroke: var(--mileage-primary); stroke-width: 2;
   transform-origin: 100px 100px;
@@ -244,6 +255,8 @@ html:not(.dark) [data-hero-bg-dark] {
   pointer-events: none; opacity: 0; animation: mileage-fade-in 0.5s ease 1.7s forwards;
 }
 @keyframes mileage-fade-in { to { opacity: 1; } }
+
+/* Legend: 3 items, staggered slide-in; dots have breath animation. */
 .mileage-legend { flex: 1; display: flex; flex-direction: column; gap: 18px; }
 .mileage-legend-item { padding: 8px 10px; border-radius: 10px; cursor: default; opacity: 0; transition: background 0.2s ease; }
 .mileage-legend-item:hover { background: #F9FAFB; }
@@ -256,16 +269,18 @@ html:not(.dark) [data-hero-bg-dark] {
 }
 .mileage-legend-dot {
   width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 166, 244, 0.2);
   animation: mileage-dot-breath 5s ease-in-out infinite;
 }
 .mileage-dot-work { background: var(--mileage-primary); animation-delay: 0s; }
 .mileage-dot-nonwork { background: #72DCFB; animation-delay: 1s; }
 .mileage-dot-weekend { background: #B28FE8; animation-delay: 2s; }
 @keyframes mileage-dot-breath {
-  0%, 100% { transform: scale(1); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
-  50% { transform: scale(1.25); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25); }
+  0%, 100% { transform: scale(1); box-shadow: 0 2px 6px rgba(0, 166, 244, 0.2); }
+  50% { transform: scale(1.25); box-shadow: 0 3px 10px rgba(0, 166, 244, 0.28); }
 }
+
+/* Stacked bar: track + fill with shimmer. Work / non-work / weekend colors. */
 .mileage-bar-track {
   height: 4px; border-radius: 99px; margin-left: 19px; overflow: hidden;
 }
@@ -289,6 +304,8 @@ html:not(.dark) [data-hero-bg-dark] {
 .mileage-bar-nonwork .mileage-bar-fill { background: linear-gradient(90deg, #B8EFFE, #72DCFB); }
 .mileage-bar-weekend .mileage-bar-track { background: #F5F3FF; }
 .mileage-bar-weekend .mileage-bar-fill { background: linear-gradient(90deg, #D5BCFF, #B28FE8); }
+
+/* Footer strip and “live” indicator. */
 .mileage-footer {
   border-top: 1px solid #F3F4F6; background: #F9FAFB;
   padding: 11px 28px; display: flex; justify-content: space-between; align-items: center;
@@ -303,6 +320,8 @@ html:not(.dark) [data-hero-bg-dark] {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.25; transform: scale(0.65); }
 }
+
+/* Hover tooltip: dark bg, 12px text, 8px radius, fade + slide. */
 .mileage-tooltip {
   position: fixed; background: var(--mileage-primary-black); color: #fff;
   font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 8px;

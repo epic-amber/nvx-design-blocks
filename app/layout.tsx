@@ -10,9 +10,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * Root layout: theme and base body styles.
- * - Inline script in <head> applies theme from localStorage (key: nvx-theme) before paint to avoid flash; adds .light or .dark to <html>. Do not remove.
- * - body: font-body, antialiased; light = bg-white + text-content-primary; dark = bg-surface-dark-primary + text-text-dark-secondary (#e5e7eb gray-200). ThemeProvider syncs toggle with DOM and storage.
+ * Root layout — single shell for the whole app.
+ * Design: light/dark theme is set on <html>; body uses semantic color tokens.
  */
 export default function RootLayout({
   children,
@@ -21,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      {/* Theme applied before paint (from localStorage "nvx-theme") to prevent flash. Do not remove. */}
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -28,10 +28,14 @@ export default function RootLayout({
           }}
         />
       </head>
+      {/* Light: white bg, dark text. Dark: surface-dark-primary bg, gray-200 body text. */}
       <body className="font-body antialiased bg-white text-content-primary dark:bg-surface-dark-primary dark:text-text-dark-secondary">
         <ThemeProvider>
+          {/* Top nav: logo, links, theme toggle (syncs with html class and storage). */}
           <NavBar />
+          {/* Main page content (hero, features, CTA, etc.). */}
           {children}
+          {/* Floating theme toggle — bottom-right. */}
           <ThemeToggleFloating />
         </ThemeProvider>
       </body>

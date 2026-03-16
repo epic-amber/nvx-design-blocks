@@ -1,6 +1,6 @@
 /**
  * Hero category slot icon for "IoT Query" (24×24).
- * From iot-query-icon-square.svg — оригинальные цвета #1a65f0 и #3cd5ff.
+ * From iot-query-icon-square.svg — original colors #1a65f0 and #3cd5ff.
  */
 export function IoTQueryIcon({ className }: { className?: string }) {
   return (
