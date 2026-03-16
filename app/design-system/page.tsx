@@ -23,17 +23,15 @@ const SPACING_CUSTOM = [
   { class: "btn-min", value: "9.375rem (150px)", use: "Primary button min-width (min-w-btn-min)" },
 ] as const;
 
-/* DESIGN_TOKENS.md — Light theme surfaces */
+/* DESIGN_TOKENS.md — Light theme surfaces (blocks only) */
 const LIGHT_SURFACES = [
-  { token: "surface-default", class: "bg-surface-default", hex: "#ffffff", use: "Page and section background (e.g. Hero)" },
-  { token: "surface-inverse", class: "bg-surface-inverse", hex: "#18181b", use: "Inverted/dark block background" },
-  { token: "surface-subtle", class: "bg-surface-subtle", hex: "#e4e4e7", use: "Cards, image placeholders" },
+  { token: "surface-default", class: "bg-surface-default", hex: "#ffffff", use: "Page and section background (e.g. Hero), cards" },
 ] as const;
 
 /* DESIGN_TOKENS.md — Dark theme surfaces */
 const DARK_SURFACES = [
   { token: "surface-dark-primary", class: "dark:bg-surface-dark-primary", hex: "#0F172A", use: "Main page/section background" },
-  { token: "surface-dark-secondary", class: "dark:bg-surface-dark-secondary", hex: "#0E141D", use: "Header, sidebars" },
+  { token: "surface-dark-secondary", class: "dark:bg-surface-dark-secondary", hex: "#0E141D", use: "Dark blocks (cards, bars)" },
   { token: "surface-dark-bright", class: "dark:bg-surface-dark-bright", hex: "#273347", use: "Cards, image blocks" },
   { token: "surface-dark-input", class: "dark:bg-surface-dark-input", hex: "#1B2533", use: "Form inputs" },
 ] as const;
@@ -50,12 +48,6 @@ const LIGHT_BUTTONS = [
   { token: "button-primary", class: "bg-button-primary", hex: "#0084d1", use: "Primary (filled) button background" },
   { token: "button-primary-foreground", class: "text-button-primary-foreground", hex: "#ffffff", use: "Text on primary button" },
   { token: "button-secondary", class: "text-button-secondary", hex: "#0084d1", use: "Secondary (ghost) button text" },
-] as const;
-
-/* DESIGN_TOKENS.md — Light theme text on dark surfaces */
-const TEXT_INVERSE = [
-  { token: "text-inverse", class: "text-text-inverse", hex: "#ffffff", use: "Active nav link, icons on dark bg" },
-  { token: "text-inverse-muted", class: "text-text-inverse-muted", hex: "#a1a1aa", use: "Inactive nav link" },
 ] as const;
 
 /* DESIGN_TOKENS.md — Dark theme text */
@@ -192,25 +184,6 @@ export default function DesignSystemPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Colors — Light theme text on dark surfaces (DESIGN_TOKENS.md) */}
-        <section className="mb-20" aria-labelledby="colors-text-inverse">
-          <h2 id="colors-text-inverse" className="font-display text-xl font-bold text-content-primary dark:text-text-dark-primary mb-8">
-            Colors · Light theme — text on dark surfaces
-          </h2>
-          <div className="dark rounded-xl bg-surface-dark-secondary p-6">
-            <div className="flex flex-wrap gap-6">
-              {TEXT_INVERSE.map(({ token, class: cls, hex, use }) => (
-                <div key={token} className="rounded-lg border border-border-dark bg-surface-dark-bright px-6 py-4">
-                  <p className={`font-body text-lg ${cls}`}>Sample text</p>
-                  <p className="mt-2 font-mono text-xs font-semibold text-text-dark-primary">{token}</p>
-                  <p className="font-mono text-xs text-text-dark-secondary">{hex}</p>
-                  <p className="mt-1 text-xs text-text-dark-secondary">{use}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 

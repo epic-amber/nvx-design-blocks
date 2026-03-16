@@ -8,7 +8,7 @@ Reference for anyone using the NVX design system: tokens live in `tailwind.confi
 
 **Base styles = default (light) theme.** There is no separate “light theme” block; the base layer defines typography (Proxima Nova), layout (html, body, main), default body colors (#ffffff / #101828), and hero layer visibility (light layers visible when `.dark` is not on `html`).
 
-**Dark theme = sub-styles only.** Applied when `.dark` is added to `html`. It overrides: hero layer visibility, body/section/hero text and buttons, header and hero image block colors. It does not duplicate typography or layout.
+**Dark theme = sub-styles only.** Applied when `.dark` is added to `html`. It overrides: hero layer visibility, body/section/hero text and buttons, hero image block colors. It does not duplicate typography or layout.
 
 **Hero mesh and gradients:** The variables `--hero-mesh-*` and `--hero-gradient-*` in `.dark` and `.dark [data-hero-02]` are part of the dark sub-styles; do not rename or change their structure when editing globals.css.
 
@@ -109,9 +109,7 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
-| surface-default | `bg-surface-default` | #ffffff | Page and section background (e.g. Hero) |
-| surface-inverse | `bg-surface-inverse` | #18181b | Inverted/dark block background |
-| surface-subtle | `bg-surface-subtle` | #e4e4e7 | Cards, image placeholders |
+| surface-default | `bg-surface-default` | #ffffff | Page and section background (e.g. Hero), cards |
 
 ### Light theme — content (text hierarchy)
 
@@ -129,13 +127,6 @@ Do not change hero H1 font size on mobile; 36px is the design system rule for al
 | button-primary-foreground | `text-button-primary-foreground` | #ffffff | Text on primary button |
 | button-secondary | `text-button-secondary` | #0084d1 | Secondary (ghost) button text |
 
-### Light theme — text on dark surfaces
-
-| Token | Class | Hex | Use for |
-|-------|--------|-----|--------|
-| text-inverse | `text-text-inverse` | #ffffff | Primary text, links and icons on dark blocks |
-| text-inverse-muted | `text-text-inverse-muted` | #a1a1aa | Muted text on dark blocks |
-
 ### Dark theme — surfaces
 
 Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172A).
@@ -143,7 +134,7 @@ Use with `dark:` prefix. Main background token: **surface-dark-primary** (#0F172
 | Token | Class | Hex | Use for |
 |-------|--------|-----|--------|
 | surface-dark-primary | `dark:bg-surface-dark-primary` | #0F172A | Main page/section background |
-| surface-dark-secondary | `dark:bg-surface-dark-secondary` | #0E141D | Header, sidebars |
+| surface-dark-secondary | `dark:bg-surface-dark-secondary` | #0E141D | Dark blocks (cards, bars) |
 | surface-dark-bright | `dark:bg-surface-dark-bright` | #273347 | Cards, image blocks |
 | surface-dark-input | `dark:bg-surface-dark-input` | #1B2533 | Form inputs |
 
